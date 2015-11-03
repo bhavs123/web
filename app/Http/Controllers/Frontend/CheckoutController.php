@@ -110,7 +110,7 @@ class CheckoutCOntroller extends Controller {
             if ($cart->options->has('sub_prod')) {
                     $cart_ids[$cart->rowid]["sub_prod_id"] = $cart->options->sub_prod;
                     $cart_ids[$cart->rowid]["price_saved"] = $cart->options->ysave;
-            }else if ($cart->options->has('combos')) {
+            } else if ($cart->options->has('combos')) {
                         $sub_prd_ids = [];
                         foreach ($cart->options->combos as $key => $val) {
                             if (isset($val['sub_prod'])) {
