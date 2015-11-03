@@ -157,7 +157,7 @@ public function configProduct($prod_id,$quantity,$price) {
         $attrs = [];
 
         $dimensions = [];
-
+print_r($product->categories); die;
         foreach ($product->categories as $cat) {
 
             array_push($cats, $cat->id);
