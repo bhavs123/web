@@ -134,6 +134,7 @@ Route::group(['namespace' => 'Frontend'], function() {
     post('/ajax-delete-address', ['as' => 'ajax-delete-address', 'uses' => 'CheckoutController@deleteAddress']);
     post('/payment-page', ['as' => 'paymentPage', 'uses' => 'CheckoutController@continueAddress']);
     post('/checkout', ['as' => 'checkout', 'uses' => 'CheckoutController@checkout']);
+    Route::get('/response', array('as' => 'response', 'uses' => 'CheckoutController@response'));
     
     get('/{slug}', array('as' => 'prod', 'uses' => 'ProductController@index'));
 });

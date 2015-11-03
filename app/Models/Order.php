@@ -14,7 +14,7 @@ class Order extends Model {
    // protected $fillable = ["payment_status","tripsheet_id","del_boy", "payment_method", "transaction_id", "description", "order_comment", "order_payment_status", "order_status"];
 
     public function products() {
-        return $this->belongsToMany('Product', 'has_products', 'order_id', 'prod_id')->withPivot("id","uprice", "sub_prod_id", "qty","qty_returned","price_saved", "price", "created_at");
+        return $this->belongsToMany('App\Models\Product', 'has_products', 'order_id', 'prod_id')->withPivot("order_id","prod_id", "sub_prod_id", "qty","qty_returned","price","price_saved", "price", "created_at");
     }
 
     public function hasproduct() {

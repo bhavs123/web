@@ -65,26 +65,25 @@ class CheckoutCOntroller extends Controller {
     public function continueAddress() {
         $cart = Cart::instance('shopping')->content();
         $cartTotal = Cart::instance('shopping')->total();
-         $addressId = Input::get("addressId");
-          Session::put('addressId', $addressId);
+        $addressId = Input::get("addressId");
+        Session::put('addressId', $addressId);
         $address = Address::where('id', '=', $addressId)->get();
         return view(Config('constants.frontendCheckoutView') . '.payment', compact('address', 'cart', 'cartTotal'));
     }
 
     public function checkout() {
-        $cart = Cart::instance('shopping')->content();
+        $cartContent = Cart::instance('shopping')->content();
         // dd($cart);
         $cartTotal = Cart::instance('shopping')->total();
-        $addrId =  Session::get('addressId'); 
+        $addrId = Session::get('addressId');
         $address = Address::where('id', '=', $addrId)->first();
-        
-        json_encode(Input::get('prod'));
 
-//dd($address);
+        //$aa = json_encode(Input::get('prod'));
+       // $bb = json_encode($cart);
+
 
         $order_total = Input::get('order_total');
         $payment_method = Input::get('payment_method');
-
         $order = new Order();
         $order->user_id = Session::get('loggedinUserId');
         $order->order_amt = $cartTotal;
@@ -92,7 +91,7 @@ class CheckoutCOntroller extends Controller {
         $order->cod_charges = '0';
         $order->payment_method = $payment_method;
         $order->payment_status = '1';
-        $order->cart = $cart;
+        $order->cart = json_encode($cartContent);
         $order->first_name = $address->firstname;
         $order->last_name = $address->lastname;
         $order->location = $address->address;
@@ -103,6 +102,24 @@ class CheckoutCOntroller extends Controller {
         $order->order_status = '1';
         $order->save();
 //echo "Thank You";
-    }
 
+        $cart_ids = [];
+        foreach ($cartContent as $cart) {
+            $cart_ids[$cart->rowid] = ["prod_id" => $cart->id, "qty" => $cart->qty, "uprice" => $cart->price, "price" => $cart->subtotal, "created_at" => date('Y-m-d H:i:s')];
+          //  dd($cart_ids[$cart->rowid]);
+            if ($cart->options->has('sub_prod')) {
+                    $cart_ids[$cart->rowid]["sub_prod_id"] = $cart->options->sub_prod;
+                    $cart_ids[$cart->rowid]["price_saved"] = $cart->options->ysave;
+            }
+             if (!empty($cart_ids)) {
+
+            $order->products()->sync($cart_ids);
+        }
+        
+        }
+        
+          return view(Config('constants.frontendCheckoutView') . '.response');
+    }
+    
+    
 }

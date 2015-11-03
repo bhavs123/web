@@ -54,7 +54,7 @@
                                     <tbody>
                                        @foreach($cart as $cartValue) 
                                         <tr class = "cart_table_item">
-                                            <input type="hidden" name="prod[{{  $cartValue->prod_id }}][id]" value="{{ $cartValue->id }}" />
+                                        <input type="hidden" name="prod[{{  $cartValue->prod_id }}][id]" value="{{ $cartValue->id }}" />
                                         <input type="hidden" name="prod[{{  $cartValue->prod_id }}][prod_id]" value="{{ $cartValue->prod_id }}" />
                                         
             
