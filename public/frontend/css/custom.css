@@ -1,0 +1,17 @@
+/* CSS Document */
+
+
+.dt-sc-button span, .dt-sc-pr-tb-col.selected .dt-sc-buy-now .dt-sc-button:hover span, .mean-container .mean-nav ul li a:hover { background-color:#ea9713; }
+
+.dt-sc-button{
+background-color:#f39d12;
+}
+
+
+
+#footer .widget ul li a{
+color:#FFFFFF;}
+
+#footer .widget ul li a:hover{
+color:#f39d12;}
+.justify, .text-justify{text-align: justify;}
