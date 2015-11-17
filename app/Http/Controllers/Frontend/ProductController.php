@@ -12,6 +12,7 @@ use App\Models\AttributeValue;
 use App\Models\Product;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use DB;
 
 class ProductController extends Controller {
 
@@ -45,6 +46,16 @@ class ProductController extends Controller {
         $prod = Product::find($id); //die;
         $producctAttrSetId = $prod->attr_set;
         $attribute = AttributeSet::find($producctAttrSetId)->attributes()->get();
+        
+        $attrOpt = DB::table("products")
+                ->where("parent_prod_id","=",$id)
+                ->leftJoin('has_options',"has_options.prod_id","=","products.id")
+              //  ->select("products.poduct",DB::)
+                ->get();
+        
+        dd($attrOpt);
+        
+      //  dd($attribute);
 //        foreach($attribute as $attrId){
 //         $attributeID = $attrId->id; // die;
 //         $attrVal = AttributeValue::find($attributeID)->get();

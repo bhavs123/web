@@ -78,7 +78,7 @@ class UsersController extends Controller {
             
             //echo "false";
             Session::flash('invalidUser', 'Invalid username or Password');
-            return redirect()->route('/login');
+            return redirect()->route('login');
         }
 	}
         
@@ -87,7 +87,7 @@ class UsersController extends Controller {
         {
          Auth::logout();
          Session::flush();
-         return redirect()->route('/logout');
+         return redirect()->route('home');
     }
 
 }

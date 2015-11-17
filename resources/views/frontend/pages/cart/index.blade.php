@@ -134,7 +134,7 @@ echo "</pre>";
                 <input type="text" class="input-text " name="" id="" placeholder="Enter your Pincode" value="" style="width:200px; margin-top:0px;"><input type="submit" class="button" name="check" value="Check" />
             </div>
             <div style="float:right;">
-                <a href="shipping.html" class="dt-sc-button smallwidth" style="margin-right:10px;"> Continue Shopping</a>
+                <a href="{{ URL::route('home') }}" class="dt-sc-button smallwidth" style="margin-right:10px;"> Continue Shopping</a>
                 <a href="{{ URL::route('shipping') }}" class="dt-sc-button smallwidth"> Checkout </a></div>
             <div class="dt-sc-margin50"></div>
         </section>        

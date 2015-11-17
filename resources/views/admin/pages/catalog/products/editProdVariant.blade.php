@@ -17,7 +17,7 @@
             @foreach($attrs as $id => $attr)
             <div class="col-md-2">
                 {!! Form::label('select varient', 'Select ' . $attr['name'] ,['class'=>'control-label']) !!}
-                {!! Form::select($id, $attr['options'] ,$prod->attributes()->wherePivot("attr_id","=",$id)->first()->pivot->attr_val,["class"=>'form-control']) !!}
+                {!! Form::select($id, $attr['options'] ,@$prod->attributes()->wherePivot("attr_id","=",$id)->first()->pivot->attr_val,["class"=>'form-control']) !!}
             </div>
             @endforeach
 

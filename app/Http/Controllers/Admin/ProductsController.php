@@ -174,6 +174,7 @@ class ProductsController extends Controller {
     }
 
     public function update4() {
+        //dd(Input::all());
         $prod = Product::find(Input::get("prod_id"));
         $attributes = AttributeSet::find($prod->attributeset['id'])->attributes()->where("is_filterable", "=", "1")->get()->toArray();
         $prods = [];
@@ -198,15 +199,16 @@ class ProductsController extends Controller {
             !isset($prods[$key]) ? $prods[$key] = [] : '';
             $prods[$key]['is_avail'] = $val;
         }
-
+//dd($prods);
         foreach ($prods as $key => $prd) {
 
-            // dd($prd["options"]);
-            $newConfigProduct = Product::create(['product' => $prod->product . ' - Variant - ' . ($key + 1), 'is_avail' => 1, 'parent_prod_id' => $prod->id, 'is_individual' => 0, 'prod_type' => 1, 'attr_set' => $prod->attr_set, 'price' => $prods[$key]['price'], 'stock' => $prods[$key]['stock'], 'is_avail' => $prods[$key]['is_avail']]);
-            //*
+          // dd($prod->product);
+            $newConfigProduct = Product::create(['product' => $prod->product . ' - Variant - ' . ($key + 1), 'is_avail' => 1, 'parent_prod_id' => $prod->id, 'is_individual' => 0, 'prod_type' => 1, 'attr_set' => @$prod->attr_set, 'price' => @$prods[$key]['price'], 'stock' => @$prods[$key]['stock'], 'is_avail' => @$prods[$key]['is_avail']]);
+           // dd($newConfigProduct);
             $attributes = AttributeSet::find($newConfigProduct->attributeset['id'])->attributes;
+           // dd( $attributes);
             $newConfigProduct->attributes()->sync($attributes);
-            //
+        // dd($newConfigProduct);
             $name = $prod->product . ' - Variant ( ';
             foreach ($prd["options"] as $op => $opt) {
 
@@ -220,12 +222,13 @@ class ProductsController extends Controller {
             $name .= " )";
 
             $newConfigProduct->product = $name;
+            
             $newConfigProduct->update();
         }
 //dd($newConfigProduct);
-        $view = !empty(Input::get('return_url')) ? redirect()->to(Input::get('return_url')) : redirect()->route("admin.products.updateUpsellRelatedProds", ['id' => $prod->id]);
+       // $view = !empty(Input::get('return_url')) ? redirect()->to(Input::get('return_url')) : redirect()->route("admin.products.updateUpsellRelatedProds", ['id' => $prod->id]);
 
-        return $view;
+        return redirect()->route("admin.products.updateUpsellRelatedProds", ['id' => $prod->id]);
     }
 
     public function updateProdVariant() {

@@ -1383,7 +1383,7 @@ media="all"
  
 }
 .edit-formrow{width:98%; margin:0 auto;}
- 
+ .hide{display:none !important;}
 .edit-form {
     width: 45%;
     border: 2px solid rgba(236, 236, 236, 0.99);
