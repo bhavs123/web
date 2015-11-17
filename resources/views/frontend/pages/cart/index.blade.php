@@ -10,7 +10,8 @@
     .error { 
         border: 1px solid #e9322d !important;  box-shadow: 0 0 6px #f8b9b7 !important;
     }
-</style>
+</style> 
+
 
 @stop
 <?php
