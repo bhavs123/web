@@ -50,8 +50,11 @@ class ProductController extends Controller {
         $attrOpt = DB::table("products")
                 ->where("parent_prod_id","=",$id)
                 ->leftJoin('has_options',"has_options.prod_id","=","products.id")
-              //  ->select("products.poduct",DB::)
+                ->select('products.product','products.parent_prod_id','group_concat(has_options.prod_id)','group_concat(has_options.attr_val)','group_concat(has_options.attr_id)')
+                ->groupBy("has_options.prod_id")
                 ->get();
+        
+       
         
         dd($attrOpt);
         
