@@ -45,27 +45,23 @@ class ProductController extends Controller {
 
         $prod = Product::find($id); //die;
         $producctAttrSetId = $prod->attr_set;
-        $attribute = AttributeSet::find($producctAttrSetId)->attributes()->get();
+       // $attribute = AttributeSet::find($producctAttrSetId)->attributes()->get();
+        $attrOpt = AttributeSet::find($producctAttrSetId)->attributes()->where("is_filterable", "=", 1)->get()->toArray();
+       // echo "<pre>";
+        //print_r($attrOpt);
+        //echo "</pre>";
+//        $attrOpt1 = DB::table("products")
+//                ->where("parent_prod_id","=",$id)->where("has_options.attr_id","=",2)
+//                ->leftJoin('has_options',"has_options.prod_id","=","products.id")
+//                ->select('products.product','products.parent_prod_id','has_options.attr_id',DB::raw("group_concat(has_options.prod_id) as productId"),'has_options.attr_val')
+//                ->groupBy("has_options.attr_val")
+//                ->get();
         
-        $attrOpt = DB::table("products")
-                ->where("parent_prod_id","=",$id)
-                ->leftJoin('has_options',"has_options.prod_id","=","products.id")
-                ->select('products.product','products.parent_prod_id',DB::raw("CONCAT(has_options.prod_id) as productId"),DB::raw("CONCAT(has_options.attr_val) as attrVal"),DB::raw("CONCAT(has_options.attr_id) as attrId"))
-                ->groupBy("has_options.prod_id")
-                ->get();
+//      
+         //dd($attrOpt1);
         
-       echo "select p.product,p.parent_prod_id, group_concat(hp.prod_id),group_concat(hp.attr_val),group_concat(hp.attr_id) from products as p inner join has_options as hp on (p.id = hp.prod_id) where p.parent_prod_id=18
-GROUP BY `hp`.`prod_id` ASC";
-        
-        dd($attrOpt);
-        
-      //  dd($attribute);
-//        foreach($attribute as $attrId){
-//         $attributeID = $attrId->id; // die;
-//         $attrVal = AttributeValue::find($attributeID)->get();
-//        }
- //      dd($attribute);
-        return view(Config('constants.frontendCatalogProductView') . '.configurableProd', compact('prod','attribute'));
+    
+        return view(Config('constants.frontendCatalogProductView') . '.configurableProd', compact('prod','attrOpt'));
     }
 
     public function getProdInfo($slug) {

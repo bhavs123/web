@@ -135,6 +135,8 @@ Route::group(['namespace' => 'Frontend'], function() {
     post('/payment-page', ['as' => 'paymentPage', 'uses' => 'CheckoutController@continueAddress']);
     post('/checkout', ['as' => 'checkout', 'uses' => 'CheckoutController@checkout']);
     Route::get('/response', array('as' => 'response', 'uses' => 'CheckoutController@response'));
+    Route::any("/ajax-get-attr-val", ['as' => 'ajax-get-attr-val', 'uses' => 'ProductController@ajaxGetAttrVal']);
+   
     
     get('/{slug}', array('as' => 'prod', 'uses' => 'ProductController@index'));
 });
