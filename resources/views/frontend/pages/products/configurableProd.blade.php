@@ -136,30 +136,31 @@
                                 <input type="hidden" name="prod_type" value="[[ prods.prod_type ]]">    
                                 <input type="hidden" name="id" value="[[ prods.id ]]">  
                                 <input type="hidden" name="price" value="[[ prods.price ]]">     
-                               <?php
-//                                echo "<pre>";
+                                <?php
+//                                echo $prod->id;
 //                                print_r($attrId);
 //                                echo "</pre>";
-                              $attributeID = $attrOpt[0]['id'];
-                               $attrVal =  DB::table("products")->where("parent_prod_id","=",18)->where("has_options.attr_id","=",$attributeID)
-                ->leftJoin('has_options',"has_options.prod_id","=","products.id")
-                ->leftJoin('attribute_values',"has_options.attr_val","=","attribute_values.id")
-                ->select('products.product','products.parent_prod_id','has_options.attr_id','attribute_values.option_name',DB::raw("group_concat(has_options.prod_id) as productId"),'has_options.attr_val')
-                ->groupBy("has_options.attr_val")
-                ->get();
-                              
+                                $attributeID = $attrOpt[0]['id'];
+                                $attrVal = DB::table("products")->where("parent_prod_id", "=", $prod->id)->where("has_options.attr_id", "=", $attributeID)
+                                        ->leftJoin('has_options', "has_options.prod_id", "=", "products.id")
+                                        ->leftJoin('attribute_values', "has_options.attr_val", "=", "attribute_values.id")
+                                        ->select('products.product', 'products.parent_prod_id', 'has_options.attr_id', 'attribute_values.option_name', DB::raw("group_concat(has_options.prod_id) as productId"), 'has_options.attr_val')
+                                        ->groupBy("has_options.attr_val")
+                                        ->get();
                                 ?>
                                 <div class="selection-box">
                                     <select name="attributeval[]" class="country_to_state country_select" id="attributeval">
                                         <option value="">-- Please Select --</option>
                                         <?php foreach ($attrVal as $attributeValue) {
                                             ?>
-                                           <option value="<?php  echo $attributeValue->attr_val ?>"  data-prodId="<?php echo $attributeValue->productId; ?>"><?php   echo $attributeValue->option_name ?></option>
+                                            <option value="<?php echo $attributeValue->attr_val ?>"  data-prodId="<?php echo $attributeValue->productId; ?>"><?php echo $attributeValue->option_name ?></option>
 
                                         <?php } ?> 
                                     </select>
                                 </div>
-                                  <div class="dt-sc-margin10"></div>
+                                 <div class="dt-sc-margin10"></div>
+                                <div class="selectColor"></div>
+                                <div class="dt-sc-margin10"></div>
 
                             </div>
                             <div class="quantity buttons_added">
@@ -306,20 +307,21 @@
 <script>
     $(document).ready(function () {
         $("#attributeval").change(function () {
-          //  alert("sfasfasf");
-          var optnId = $('#attributeval').val();
-          alert(optnId);
-          var optProdId = $('#attributeval :selected').attr('data-prodId');
-          alert(optProdId);
-       // $("#attributeval").change(function () {
-             $.ajax({
+            //  alert("sfasfasf");
+            var optnId = $('#attributeval').val();
+            alert(optnId);
+            var optProdId = $('#attributeval :selected').attr('data-prodId');
+            alert(optProdId);
+            // $("#attributeval").change(function () {
+            $.ajax({
                 type: "POST",
                 url: "{{ URL::route('ajax-get-attr-val') }}",
-                data: {optnId: optnId,optProdId: optProdId},
+                data: {optnId: optnId, optProdId: optProdId},
                 cache: false,
                 success: function (data) {
-                    
+                    $('.selectColor').html(data)
                 }
+            });
         });
     });
 </script>

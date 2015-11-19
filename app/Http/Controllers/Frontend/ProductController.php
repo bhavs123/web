@@ -196,4 +196,28 @@ class ProductController extends Controller {
         return response()->json($products);
     }
 
+    public function ajaxGetAttrVal()
+    {
+         $optnId = Input::get("optnId");
+         $optProdId = Input::get("optProdId"); 
+         $optVals = explode(',',$optProdId);
+                 $attrOpt = DB::table("has_options")
+                          ->leftJoin('attribute_values', "has_options.attr_val", "=", "attribute_values.id")->whereIn('prod_id', $optVals)->where("attr_val","!=",$optnId)->get();
+                 
+  //  dd($attrOpt);
+                 ?>
+<div class="selection-box">
+                                    <select name="attributeOptVal[]" class="country_to_state country_select" id="attributeOptVal">
+                                        <option value="">-- Please Select --</option>
+                                        <?php foreach ($attrOpt as $attributeOptValue) {
+                                            ?>
+                                            <option value="<?php echo $attributeOptValue->prod_id ?>"><?php echo $attributeOptValue->option_name ?></option>
+
+                                        <?php } ?> 
+                                    </select>
+                                </div>
+<?php
+
+                 
+    }
 }
