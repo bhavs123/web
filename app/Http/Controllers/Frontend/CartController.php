@@ -207,7 +207,7 @@ public function configProduct($prod_id,$chlidProductId,$quantity,$price) {
         }
 
         
-        Cart::instance('shopping')->add(["id" => $prodParentId, "name" => $pname, "qty" => $quantity, "price" => $price, "options" => ["image" => $image, 'cats' => $cats, 'attrs' => $attrs]]);
+        Cart::instance('shopping')->add(["id" => $chlidProductId, "name" => $pname, "qty" => $quantity, "price" => $price, "options" => ["image" => $image, 'cats' => $cats, 'attrs' => $attrs]]);
 
     }
 
