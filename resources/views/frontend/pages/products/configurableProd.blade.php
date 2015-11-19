@@ -103,7 +103,7 @@
                         <h1 class="product_title entry-title">[[ prods.product ]]</h1>
                         <div class="woocommerce-product-rating">
 
-                            <p class="price">[[ prods.price ]]</p>
+                            <p class="price" id="priceOptType" >[[ prods.price ]]</p>
 
                         </div>
                         <div class="description">
@@ -134,8 +134,9 @@
                             <div class="form-row form-row-wide address-field validate-required">		
                                 <input type="hidden" name="_token" value="<?php echo csrf_token() ?>">    
                                 <input type="hidden" name="prod_type" value="[[ prods.prod_type ]]">    
-                                <input type="hidden" name="id" value="[[ prods.id ]]">  
-                                <input type="hidden" name="price" value="[[ prods.price ]]">     
+                                <input type="hidden" name="id" value="[[ prods.id ]]" id="prodId">  
+                                <input type="hidden" name="price" value="[[ prods.price ]]" id="prodPrice">     
+                                <input type="hidden" name="chlidProductId" value="" id="chlidProductId">
                                 <?php
 //                                echo $prod->id;
 //                                print_r($attrId);
@@ -158,7 +159,7 @@
                                         <?php } ?> 
                                     </select>
                                 </div>
-                                 <div class="dt-sc-margin10"></div>
+                                <div class="dt-sc-margin10"></div>
                                 <div class="selectColor"></div>
                                 <div class="dt-sc-margin10"></div>
 
@@ -307,23 +308,46 @@
 <script>
     $(document).ready(function () {
         $("#attributeval").change(function () {
-            //  alert("sfasfasf");
+
             var optnId = $('#attributeval').val();
-            alert(optnId);
             var optProdId = $('#attributeval :selected').attr('data-prodId');
-            alert(optProdId);
-            // $("#attributeval").change(function () {
+
             $.ajax({
                 type: "POST",
                 url: "{{ URL::route('ajax-get-attr-val') }}",
                 data: {optnId: optnId, optProdId: optProdId},
                 cache: false,
                 success: function (data) {
-                    $('.selectColor').html(data)
+
+                    $('.selectColor').html(data);
+
+                }
+            });
+        });
+
+        $(document).on('change', '#attributeOptVal', function () {
+            var attrOptnVal = $('#attributeOptVal').val();
+          //  alert(attrOptnVal); 
+            var productId = $('#prodId').val();
+            // alert(productId); 
+            $.ajax({
+                type: "POST",
+                url: "{{ URL::route('ajax-get-attr-price') }}",
+                data: {attrOptnVal: attrOptnVal, productId: productId},
+                cache: false,
+                success: function (data) {
+                    var attrOptPrice = data.split('-');
+                    var prodTotal = parseFloat(attrOptPrice[0]) + parseFloat(attrOptPrice[1]);
+                    $('#priceOptType').text(prodTotal);
+                    $('#prodPrice').val(prodTotal);
+                    $('#chlidProductId').val(attrOptnVal)
                 }
             });
         });
     });
+
 </script>
+
+
 
 @stop

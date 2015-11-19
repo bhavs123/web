@@ -47,6 +47,8 @@ class CartController extends Controller {
 
         $prod_id = Input::get("id");
 
+        $chlidProductId =Input::get("chlidProductId");
+        
         $quantity = Input::get("quantity"); //die;
 
         $price = Input::get("price");
@@ -65,7 +67,7 @@ class CartController extends Controller {
 
             case 3:
 
-                $msg = $this->configProduct($prod_id,$quantity,$price);
+                $msg = $this->configProduct($prod_id,$chlidProductId,$quantity,$price);
 
                 break;
 
@@ -148,16 +150,16 @@ class CartController extends Controller {
 
     }
 
-public function configProduct($prod_id,$quantity,$price) {
+public function configProduct($prod_id,$chlidProductId,$quantity,$price) {
 
         $product = Product::find($prod_id);
-
+    
         $cats = [];
 
         $attrs = [];
 
         $dimensions = [];
-print_r($product->categories); die;
+
         foreach ($product->categories as $cat) {
 
             array_push($cats, $cat->id);
@@ -205,7 +207,7 @@ print_r($product->categories); die;
         }
 
         
-        Cart::instance('shopping')->add(["id" => $prod_id, "name" => $pname, "qty" => $quantity, "price" => $price, "options" => ["image" => $image, 'cats' => $cats, 'attrs' => $attrs]]);
+        Cart::instance('shopping')->add(["id" => $prodParentId, "name" => $pname, "qty" => $quantity, "price" => $price, "options" => ["image" => $image, 'cats' => $cats, 'attrs' => $attrs]]);
 
     }
 

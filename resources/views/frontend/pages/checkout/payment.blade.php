@@ -188,24 +188,20 @@
             $("#shipping_state").empty();
 
             var country_id = $("#shipping_country").val();
-          //  alert(country_id);
+         
             $.ajax({
                 type: "POST",
                 url: "{{ URL::route('ajax-country-states') }}",
                 data: {country_id: country_id},
                 cache: false,
                 success: function (data) {
-                    //alert(data);
-                    // var stateoption = jQuery.parseJSON(data);
-                  // alert(stateoption)
+              
                 $.each(data, function(key, value) {
-//alert(value);
+
                     $("#shipping_state").append('<option value="' + value['id'] + '">' + value['name'] + '</option>');
                 });
 
                 }
-
-
             });
         });
     });

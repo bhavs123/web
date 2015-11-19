@@ -45,23 +45,11 @@ class ProductController extends Controller {
 
         $prod = Product::find($id); //die;
         $producctAttrSetId = $prod->attr_set;
-       // $attribute = AttributeSet::find($producctAttrSetId)->attributes()->get();
+        // $attribute = AttributeSet::find($producctAttrSetId)->attributes()->get();
         $attrOpt = AttributeSet::find($producctAttrSetId)->attributes()->where("is_filterable", "=", 1)->get()->toArray();
-       // echo "<pre>";
-        //print_r($attrOpt);
-        //echo "</pre>";
-//        $attrOpt1 = DB::table("products")
-//                ->where("parent_prod_id","=",$id)->where("has_options.attr_id","=",2)
-//                ->leftJoin('has_options',"has_options.prod_id","=","products.id")
-//                ->select('products.product','products.parent_prod_id','has_options.attr_id',DB::raw("group_concat(has_options.prod_id) as productId"),'has_options.attr_val')
-//                ->groupBy("has_options.attr_val")
-//                ->get();
-        
-//      
-         //dd($attrOpt1);
-        
-    
-        return view(Config('constants.frontendCatalogProductView') . '.configurableProd', compact('prod','attrOpt'));
+
+
+        return view(Config('constants.frontendCatalogProductView') . '.configurableProd', compact('prod', 'attrOpt'));
     }
 
     public function getProdInfo($slug) {
@@ -196,28 +184,36 @@ class ProductController extends Controller {
         return response()->json($products);
     }
 
-    public function ajaxGetAttrVal()
-    {
-         $optnId = Input::get("optnId");
-         $optProdId = Input::get("optProdId"); 
-         $optVals = explode(',',$optProdId);
-                 $attrOpt = DB::table("has_options")
-                          ->leftJoin('attribute_values', "has_options.attr_val", "=", "attribute_values.id")->whereIn('prod_id', $optVals)->where("attr_val","!=",$optnId)->get();
-                 
-  //  dd($attrOpt);
-                 ?>
-<div class="selection-box">
-                                    <select name="attributeOptVal[]" class="country_to_state country_select" id="attributeOptVal">
-                                        <option value="">-- Please Select --</option>
-                                        <?php foreach ($attrOpt as $attributeOptValue) {
-                                            ?>
-                                            <option value="<?php echo $attributeOptValue->prod_id ?>"><?php echo $attributeOptValue->option_name ?></option>
+    public function ajaxGetAttrVal() {
+        $optnId = Input::get("optnId");
+        $optProdId = Input::get("optProdId");
+        $optVals = explode(',', $optProdId);
+        $attrOpt = DB::table("has_options")
+                        ->leftJoin('attribute_values', "has_options.attr_val", "=", "attribute_values.id")->whereIn('prod_id', $optVals)->where("attr_val", "!=", $optnId)->get();
 
-                                        <?php } ?> 
-                                    </select>
-                                </div>
-<?php
+        //  dd($attrOpt);
+        ?>
+        <div class="selection-box">
+            <select name="attributeOptVal[]" class="country_to_state country_select" id="attributeOptVal">
+                <option value="">-- Please Select --</option>
+                <?php foreach ($attrOpt as $attributeOptValue) {
+                    ?>
+                    <option value="<?php echo $attributeOptValue->prod_id ?>"><?php echo $attributeOptValue->option_name ?></option>
 
-                 
+                <?php } ?> 
+            </select>
+        </div>
+        <?php
     }
+
+    public function ajaxGetAttrPrice() {
+        $attrOptnVal = Input::get("attrOptnVal");
+        $productId = Input::get("productId");
+        $prodArr = Product::where('id', '=', $attrOptnVal)->get()->toArray();
+        $prodArr1 = Product::where('id', '=', $productId)->get()->toArray();
+        return  $prodArr[0]['price']."-".$prodArr1[0]['price'];
+      
+      
+    }
+
 }
