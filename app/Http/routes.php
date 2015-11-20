@@ -140,8 +140,9 @@ Route::group(['namespace' => 'Frontend'], function() {
     get('/my-profile', ['as' => 'myProfile', 'uses' => 'UsersController@myProfile']);
     get('/order-details', ['as' => 'orderDetails', 'uses' => 'UsersController@orderDetails']);
     post('/save-profile', ['as'=> 'saveProfile','uses'=>'UsersController@saveProfile']);
-    get('/reset-password', ['as'=> 'resetPassword','uses'=>'UsersController@resetPassword']);
-    post('/update-reset-password', ['as'=> 'updateResetPassword','uses'=>'UsersController@updatePassword']);
+    get('/update-password', ['as'=> 'updatePassword','uses'=>'UsersController@updatePassword']);
+    post('/save-update-password', ['as'=> 'saveUpdatePassword','uses'=>'UsersController@saveUpdatePassword']);
     
     get('/{slug}', array('as' => 'prod', 'uses' => 'ProductController@index'));
+    
 });

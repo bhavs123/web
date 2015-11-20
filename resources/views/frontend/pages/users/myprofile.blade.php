@@ -29,7 +29,7 @@
                 <li><a href="{{ route('myProfile') }}">My Profile</a></li>
                 <li><a href="{{ route('orderDetails') }}">My Order</a></li>
                 <li><a href="#">Reward Point</a></li>
-                <li><a href="{{ route('resetPassword') }}">Reset Password</a></li>
+                <li><a href="{{ route('updatePassword') }}">Change Password</a></li>
             </ul>
         </aside>
 

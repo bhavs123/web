@@ -26,10 +26,10 @@
             </p>
             <ul>
 
-                <li><a href="{{ route('myProfile') }}">My Profile</a></li>
+               <li><a href="{{ route('myProfile') }}">My Profile</a></li>
                 <li><a href="{{ route('orderDetails') }}">My Order</a></li>
                 <li><a href="#">Reward Point</a></li>
-                <li><a href="{{ route('resetPassword') }}">Reset Password</a></li>
+                <li><a href="{{ route('updatePassword') }}">Change Password</a></li>
             </ul>
         </aside>
 
@@ -47,12 +47,13 @@
                 <div class="entry-title">
                     <h4><a href="my-profile.html">My Profile</a></h4>
                 </div>
+            </div>
                 <!-- **entry-meta-data - Starts** -->
 
 
 
                 <div class="woocommerce">
-                    <form name="checkout" method="post" class="edit-formrow" action="{{route('saveProfile')}}">
+                    <form name="checkout" method="post" class="edit-formrow" action="{{route('saveUpdatePassword')}}">
                         <!-- **col2-set - Starts** -->    
 
 
@@ -73,18 +74,9 @@
                             <input type="text" class="input-text " name="confirm_password" id="confirm_password" placeholder="Confirm Password" value="">
                         </p>
                         
-                        
-
-
-
-
-
-
-
-
-
+                          <div class="dt-sc-margin10"></div>
                         <div style="float:right;">
-                            <input type="submit" class="dt-sc-button smallwidth" name="submit" id="submit" value="Save" style="margin-right:10px;">
+                            <input type="submit" class="dt-sc-button smallwidth" name="submit" id="submit" value="Change Password" style="margin-right:10px;">
                             <div class="clear"></div>
                     </form>
 

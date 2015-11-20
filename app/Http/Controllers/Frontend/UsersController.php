@@ -112,23 +112,21 @@ class UsersController extends Controller {
         return redirect()->back()->with('updateProfile', 'Profile Updated Successfully');
     }
 
-    public function resetPassword() {
-        //  echo "sdfg";
+    public function updatePassword() {
+      
         $userId = Session::get('loggedinUserId');
         $userDetails = User::where('id', "=", $userId)->get()->toArray();
       
-         return view(Config('constants.frontendLoginView') . '.resetpassword', compact('userDetails'));
+         return view(Config('constants.frontendLoginView') . '.updatepassword', compact('userDetails'));
     }
     
-    public function updatePassword() {
+    public function saveUpdatePassword() { 
         $userId = Session::get('loggedinUserId');
         $getExistingPwd = User::find($userId)->password;
         $oldPwd = Input::get('old_password');
         $newPwd = Input::get('new_password');
         $confPwd = Input::get('confirm_password');
         $chkPassword = Hash::check($oldPwd, $getExistingPwd);
-
-
         if ($newPwd == $confPwd) {
             if ($chkPassword == true) {
                 $update = User::find(Session::get('userId'));
