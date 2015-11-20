@@ -5,7 +5,7 @@
     <div class="container">
         <div class="page_info"> 
             <h3 class="aligncenter"> <span> <i class="fa fa-user"></i></span>
-                My Profile </h3>
+                Reset Password </h3>
         </div>
         <div class="dt-sc-margin20"></div>
     </div>
@@ -21,8 +21,8 @@
         <aside class="widget widget_categories">
             <h4 class="widgettitle"><strong>{{ ucfirst(Session::get("userName")) }}</strong></h4>
             <p style="border-bottom: 1px dashed #d9d9d9; padding-bottom:20px;">
-                <span><a href="#">vikram.g@infiniteit.biz</a></span><br>
-                <span>mumbai</span>
+                <span><a href="#">{{$userDetails[0]['email']}}</a></span><br>
+
             </p>
             <ul>
 
@@ -57,45 +57,30 @@
 
 
 
-
-                        <p class="dt-sc-one-half column first" id=""><input type="text" class="input-text " name="firstName" id="firstName" placeholder="" value="{{ $userDetails[0]['first_name']}}"></p>
+                        <p class="dt-sc-one-half column" id="">
+                            <input type="text" class="input-text" name="cemail" id="cemail" placeholder="" value="{{ $userDetails[0]['email']}}">
+                        </p>
+                        <p class="dt-sc-one-half column" id="">
+                            <input type="text" class="input-text " name="old_password" id="old_password" placeholder="Old Password" value="">
+                        </p>
 
                         <p class="dt-sc-one-half column" id="">
-                            <input type="text" class="input-text " name="lastName" id="lastName" placeholder="" value="{{ $userDetails[0]['last_name']}}"></p><div class="clear"></div>
+                            <input type="text" class="input-text " name="new_password" id="new_password" placeholder="New Password" value="">
+                        </p>
+                        
 
-                        <p class="dt-sc-one-half column first" id=""><input type="text" class="input-text " name="mobile" id="mobile" placeholder="" value="{{ $userDetails[0]['contact_no']}}"></p>
+                        <p class="dt-sc-one-half column" id="">
+                            <input type="text" class="input-text " name="confirm_password" id="confirm_password" placeholder="Confirm Password" value="">
+                        </p>
+                        
+                        
 
-                        <p class="dt-sc-one-half column" id=""><input type="text" class="input-text" name="cemail" id="cemail" placeholder="" value="{{ $userDetails[0]['email']}}"></p>
 
 
 
-                        <p class="dt-sc-one-half column first" id=""><select name="country" id="country"  tabindex="13" readonly="true" class="input-text" >
-                                <option value="">Please select country </option>
-                                @foreach($country as $cval)
-                                <option value="{{ $cval['id']}}" <?php if ($userDetails[0]['country'] == $cval['id']) echo "selected"; ?>>{{ $cval['name']}}</option>
-                                @endforeach
 
-                            </select></p>
 
-                        <p class="dt-sc-one-half column" id=""><select name="state" id="state" tabindex="13" readonly="true" class="input-text" > 
-                                <option value="">Please select state </option>
-                                @foreach($state as $sval)
-                                <option value="{{ $sval['id']}}" <?php if ($userDetails[0]['state'] == $sval['id']) echo "selected"; ?>>{{ $sval['name']}}</option>
-                                @endforeach
 
-                            </select></p>
-
-                        <div class="dt-sc-margin10"></div>
-                        <p class="form-row form-row-wide address-field validate-required" id="">
-                            <textarea placeholder="" name="address"  id="address" required="" value="">{{ $userDetails[0]['location']}}</textarea></p>
-
-                        <?php
-                        if (session()->has('updateProfile')) {
-                            ?>
-                            <p class="form-row form-row-wide address-field validate-required"> <?php echo session('updateProfile') ?> </p>
-                            <?php
-                        }
-                        ?>
 
 
                         <div style="float:right;">

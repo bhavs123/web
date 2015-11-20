@@ -29,7 +29,7 @@ class UsersController extends Controller {
 
     public function saveCustomer() {
         // dd('sdfasfsf');
-        //     dd(Input::all());
+        // dd(Input::all());
         $user = User::create(Input::except('password'));
 
         $user->password = Hash::make(Input::get('password'));
@@ -98,18 +98,51 @@ class UsersController extends Controller {
 
     public function saveProfile() {
         $userId = Session::get('loggedinUserId');
-       
-         $userInfo = User::find($userId);
-            $userInfo->first_name = Input::get('firstName');
-            $userInfo->last_name = Input::get('firstName');
-            $userInfo->email = Input::get('email');
-            $userInfo->country = Input::get('country');
-            $userInfo->state = Input::get('state');
-            $userInfo->location = Input::get('location');
-            $userInfo->contact_no = Input::get('mobile');
-            $userInfo->update();
-            
-      return redirect()->back();
+
+        $userInfo = User::find($userId);
+        $userInfo->first_name = Input::get('firstName');
+        $userInfo->last_name = Input::get('lastName');
+        $userInfo->email = Input::get('cemail');
+        $userInfo->country = Input::get('country');
+        $userInfo->state = Input::get('state');
+        $userInfo->location = Input::get('address');
+        $userInfo->contact_no = Input::get('mobile');
+        $userInfo->update();
+
+        return redirect()->back()->with('updateProfile', 'Profile Updated Successfully');
+    }
+
+    public function resetPassword() {
+        //  echo "sdfg";
+        $userId = Session::get('loggedinUserId');
+        $userDetails = User::where('id', "=", $userId)->get()->toArray();
+      
+         return view(Config('constants.frontendLoginView') . '.resetpassword', compact('userDetails'));
+    }
+    
+    public function updatePassword() {
+        $userId = Session::get('loggedinUserId');
+        $getExistingPwd = User::find($userId)->password;
+        $oldPwd = Input::get('old_password');
+        $newPwd = Input::get('new_password');
+        $confPwd = Input::get('confirm_password');
+        $chkPassword = Hash::check($oldPwd, $getExistingPwd);
+
+
+        if ($newPwd == $confPwd) {
+            if ($chkPassword == true) {
+                $update = User::find(Session::get('userId'));
+                $update->password = Hash::make($newPwd);
+                $update->Update();
+                Session::flash("ChangeSuccess", "Password Changed Successfully");
+            } else {
+                Session::flash("ChangeError", "Incorrect old password");
+            }
+        } else {
+            Session::flash("notMatch", "New Password and Confirm Password does not match");
+        }
+
+        return redirect()->back();
     }
 
 }
