@@ -10,7 +10,7 @@
         <div class="top-right custom-top-right">
               @if(Session::get("userName"))
               <span> Hi, </span><strong>{{ ucfirst(Session::get("userName")) }}</strong>|
-             <span> <a href="#"> <i class="fa fa-user"></i> My Account </a>| <a href="{{ route('logout') }}"></i> Logout </a> |
+             <span> <a href="{{ route('myProfile') }}"> <i class="fa fa-user"></i> My Account </a>| <a href="{{ route('logout') }}"></i> Logout </a> |
               <a href="/cart"><i class="fa fa-shopping-cart"></i> Cart <span class="cartQty">({{ count(Cart::instance("shopping")->content())}})</a></span>
               @else
             <a href="{{ route('login') }}"> <span><i class="fa fa-edit"></i> Login</a> | <a href="{{ route('register') }}"><i class="fa fa-user"></i> Register</a> |

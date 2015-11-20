@@ -137,6 +137,11 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::get('/response', array('as' => 'response', 'uses' => 'CheckoutController@response'));
     Route::any("/ajax-get-attr-val", ['as' => 'ajax-get-attr-val', 'uses' => 'ProductController@ajaxGetAttrVal']);
     Route::any("/ajax-get-attr-price", ['as' => 'ajax-get-attr-price', 'uses' => 'ProductController@ajaxGetAttrPrice']);
+    get('/myProfile', ['as' => 'myProfile', 'uses' => 'UsersController@myProfile']);
+    get('/myOrderDetails', ['as' => 'orderDetails', 'uses' => 'UsersController@orderDetails']);
+    post('/saveProfile', ['as'=> 'saveProfile','uses'=>'UsersController@saveProfile']);
+    
+    
     
     get('/{slug}', array('as' => 'prod', 'uses' => 'ProductController@index'));
 });

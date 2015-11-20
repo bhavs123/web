@@ -13,11 +13,10 @@ return[
     'frontendjs' => 'public/frontend/js',
     'frontendimg' => 'public/frontend/images',
     'frontendCategoryView' => 'frontend.pages.category',
-	'productImgPath' => 'public/admin/uploads/catalog/products/',
-	'frontendCatalogProductView' => 'frontend.pages.products',
-	'frontendCartView'=>'frontend.pages.cart',
-        'frontendLoginView'=>'frontend.pages.users',
-    'frontendCheckoutView'=>'frontend.pages.checkout',
-        
+    'productImgPath' => 'public/admin/uploads/catalog/products/',
+    'frontendCatalogProductView' => 'frontend.pages.products',
+    'frontendCartView' => 'frontend.pages.cart',
+    'frontendLoginView' => 'frontend.pages.users',
+    'frontendCheckoutView' => 'frontend.pages.checkout',
         ]
 ?>
