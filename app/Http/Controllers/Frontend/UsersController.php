@@ -129,7 +129,7 @@ class UsersController extends Controller {
         $chkPassword = Hash::check($oldPwd, $getExistingPwd);
         if ($newPwd == $confPwd) {
             if ($chkPassword == true) {
-                $update = User::find(Session::get('userId'));
+                $update = User::find($userId);
                 $update->password = Hash::make($newPwd);
                 $update->Update();
                 Session::flash("ChangeSuccess", "Password Changed Successfully");

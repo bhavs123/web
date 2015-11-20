@@ -26,7 +26,7 @@
             </p>
             <ul>
 
-               <li><a href="{{ route('myProfile') }}">My Profile</a></li>
+                <li><a href="{{ route('myProfile') }}">My Profile</a></li>
                 <li><a href="{{ route('orderDetails') }}">My Order</a></li>
                 <li><a href="#">Reward Point</a></li>
                 <li><a href="{{ route('updatePassword') }}">Change Password</a></li>
@@ -43,45 +43,56 @@
         <article class="blog-post type3">
 
             <!-- **entry-detail - Starts** -->
-            <div class="entry-detail" style="width: 100%;">
+            <!--<div class="entry-detail" style="width: 100%;">
                 <div class="entry-title">
                     <h4><a href="my-profile.html">My Profile</a></h4>
                 </div>
+            </div>-->
+            <!-- **entry-meta-data - Starts** -->
+
+
+
+            <div class="woocommerce">
+                <form name="checkout" method="post" class="edit-formrow" action="{{route('saveUpdatePassword')}}">
+                    <!-- **col2-set - Starts** -->    
+
+
+
+                    <p class="dt-sc-one-half column" id="">
+                        <input type="text" class="input-text" name="cemail" id="cemail" placeholder="" value="{{ $userDetails[0]['email']}}">
+                    </p>
+                    <p class="dt-sc-one-half column" id="">
+                        <input type="text" class="input-text " name="old_password" id="old_password" placeholder="Old Password" value="">
+                    </p>
+
+                    <p class="dt-sc-one-half column" id="">
+                        <input type="text" class="input-text " name="new_password" id="new_password" placeholder="New Password" value="">
+                    </p>
+
+
+                    <p class="dt-sc-one-half column" id="">
+                        <input type="text" class="input-text " name="confirm_password" id="confirm_password" placeholder="Confirm Password" value="">
+                    </p>
+
+                    <div class="dt-sc-margin10"></div>
+                    <p class="dt-sc-one-half column" id="">
+                        <?php
+                        if (Session::get('ChangeSuccess')) {
+                            echo Session::get('ChangeSuccess');
+                        } else if (Session::get('ChangeError')) {
+                            echo Session::get('ChangeError');
+                        } else {
+                            echo Session::get('notMatch');
+                        }
+                        ?>
+                    </p>
+                    <div style="float:right;">
+                        <input type="submit" class="dt-sc-button smallwidth" name="submit" id="submit" value="Change Password" style="margin-right:10px;">
+                        <div class="clear"></div>
+                </form>
+
+
             </div>
-                <!-- **entry-meta-data - Starts** -->
-
-
-
-                <div class="woocommerce">
-                    <form name="checkout" method="post" class="edit-formrow" action="{{route('saveUpdatePassword')}}">
-                        <!-- **col2-set - Starts** -->    
-
-
-
-                        <p class="dt-sc-one-half column" id="">
-                            <input type="text" class="input-text" name="cemail" id="cemail" placeholder="" value="{{ $userDetails[0]['email']}}">
-                        </p>
-                        <p class="dt-sc-one-half column" id="">
-                            <input type="text" class="input-text " name="old_password" id="old_password" placeholder="Old Password" value="">
-                        </p>
-
-                        <p class="dt-sc-one-half column" id="">
-                            <input type="text" class="input-text " name="new_password" id="new_password" placeholder="New Password" value="">
-                        </p>
-                        
-
-                        <p class="dt-sc-one-half column" id="">
-                            <input type="text" class="input-text " name="confirm_password" id="confirm_password" placeholder="Confirm Password" value="">
-                        </p>
-                        
-                          <div class="dt-sc-margin10"></div>
-                        <div style="float:right;">
-                            <input type="submit" class="dt-sc-button smallwidth" name="submit" id="submit" value="Change Password" style="margin-right:10px;">
-                            <div class="clear"></div>
-                    </form>
-
-
-                </div>
 
             </div> <!-- **entry-detail - Ends** -->
         </article><!-- **Blog-post - Ends** -->
