@@ -85,7 +85,7 @@
                             echo Session::get('notMatch');
                         }
                         ?>
-                    </p>
+                    </p> 
                     <div style="float:right;">
                         <input type="submit" class="dt-sc-button smallwidth" name="submit" id="submit" value="Change Password" style="margin-right:10px;">
                         <div class="clear"></div>

@@ -108,7 +108,7 @@ class UsersController extends Controller {
         $userInfo->location = Input::get('address');
         $userInfo->contact_no = Input::get('mobile');
         $userInfo->update();
-
+ 
         return redirect()->back()->with('updateProfile', 'Profile Updated Successfully');
     }
 
