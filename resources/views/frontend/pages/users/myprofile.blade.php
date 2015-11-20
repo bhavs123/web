@@ -65,15 +65,27 @@
 
                         <p class="dt-sc-one-half column first" id=""><input type="text" class="input-text " name="mobile" id="mobile" placeholder="" value="{{ $userDetails[0]['contact_no']}}"></p>
 
-                        <p class="dt-sc-one-half column" id=""><input type="text" class="input-text " name="cemail" id="cemail" placeholder="" value="{{ $userDetails[0]['email']}}"></p>
+                        <p class="dt-sc-one-half column" id=""><input type="text" class="input-text" name="cemail" id="cemail" placeholder="" value="{{ $userDetails[0]['email']}}"></p>
 
 
 
-                        <p class="dt-sc-one-half column first" id=""><input type="text" class="input-text " value="{{ $userDetails[0]['first_name']}}" placeholder="" name="city" id="city"></p>
+                        <p class="dt-sc-one-half column first" id=""><select name="country" id="country"  tabindex="13" readonly="true" class="input-text" >
+                        <option value="">Please select country </option>
+                        @foreach($country as $cval)
+                        <option value="{{ $cval['id']}}" <?php if($userDetails[0]['country']==$cval['id']) echo "selected"; ?>>{{ $cval['name']}}</option>
+                        @endforeach
 
-                        <p class="dt-sc-one-half column" id=""><input type="text" class="input-text " name="pin" id="pin" placeholder="" value="{{ $userDetails[0]['first_name']}}"></p>
+                    </select></p>
 
+                        <p class="dt-sc-one-half column" id=""><select name="state" id="state" tabindex="13" readonly="true" class="input-text" > 
+                        <option value="">Please select state </option>
+                       @foreach($state as $sval)
+                        <option value="{{ $sval['id']}}" <?php if($userDetails[0]['state']==$sval['id']) echo "selected"; ?>>{{ $sval['name']}}</option>
+                        @endforeach
 
+                    </select></p>
+
+ <div class="dt-sc-margin10"></div>
                         <p class="form-row form-row-wide address-field validate-required" id="">
                             <textarea placeholder="" name="address"  id="address" required="" value="">{{ $userDetails[0]['location']}}</textarea></p>
 
@@ -99,3 +111,29 @@
 
 
 @endsection
+@section('myscripts')
+<script>
+    $(document).ready(function () {
+        $("#country").change(function () {
+            $("#state").empty();
+
+            var country_id = $("#country").val();
+        
+            $.ajax({
+                type: "POST",
+                url: "{{ URL::route('ajax-country-states') }}",
+                data: {country_id: country_id},
+                cache: false,
+                success: function (data) {
+              
+                $.each(data, function(key, value) {
+
+                    $("#state").append('<option value="' + value['id'] + '">' + value['name'] + '</option>');
+                });
+
+                }
+            });
+        });
+    });
+</script>
+@stop
