@@ -98,9 +98,18 @@ class UsersController extends Controller {
 
     public function saveProfile() {
         $userId = Session::get('loggedinUserId');
-        $aa = Input::get();
-        print_r($aa);
-        die;
+       
+         $userInfo = User::find($userId);
+            $userInfo->first_name = Input::get('firstName');
+            $userInfo->last_name = Input::get('firstName');
+            $userInfo->email = Input::get('email');
+            $userInfo->country = Input::get('country');
+            $userInfo->state = Input::get('state');
+            $userInfo->location = Input::get('location');
+            $userInfo->contact_no = Input::get('mobile');
+            $userInfo->update();
+            
+      return redirect()->back();
     }
 
 }
