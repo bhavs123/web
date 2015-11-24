@@ -14,6 +14,7 @@ use Input;
 use Auth;
 use Session;
 use Hash;
+use DB;
 
 class UsersController extends Controller {
 
@@ -108,19 +109,19 @@ class UsersController extends Controller {
         $userInfo->location = Input::get('address');
         $userInfo->contact_no = Input::get('mobile');
         $userInfo->update();
- 
+
         return redirect()->back()->with('updateProfile', 'Profile Updated Successfully');
     }
 
     public function updatePassword() {
-      
+
         $userId = Session::get('loggedinUserId');
         $userDetails = User::where('id', "=", $userId)->get()->toArray();
-      
-         return view(Config('constants.frontendLoginView') . '.updatepassword', compact('userDetails'));
+
+        return view(Config('constants.frontendLoginView') . '.updatepassword', compact('userDetails'));
     }
-    
-    public function saveUpdatePassword() { 
+
+    public function saveUpdatePassword() {
         $userId = Session::get('loggedinUserId');
         $getExistingPwd = User::find($userId)->password;
         $oldPwd = Input::get('old_password');
@@ -141,6 +142,31 @@ class UsersController extends Controller {
         }
 
         return redirect()->back();
+    }
+
+    public function orderDetails() {
+        $userId = Session::get('loggedinUserId');
+        $userDetails = User::where('id', "=", $userId)->get()->toArray();
+
+        $orderDetails = DB::table('orders')
+                        ->Join('has_products', 'orders.id', '=', 'has_products.order_id')
+                        ->Join('products', 'has_products.prod_id', '=', 'products.id')
+                        ->Join('order_status', 'orders.order_status', '=', 'order_status.id')
+                        ->select('orders.id','order_status.order_status', 'orders.created_at', DB::raw('SUM(has_products.price) as totalOrderAmt'), DB::raw("group_concat(products.product) as productName"), DB::raw("group_concat(products.id) as productId"), DB::raw("group_concat(has_products.qty) as productQty"), DB::raw("group_concat(has_products.uprice) as productUprice"), DB::raw("group_concat(has_products.price) as productPrice"))
+                        ->groupBy('orders.id')
+                        ->where('user_id', "=", $userId)->get();
+
+//dd($orderDetails);
+        return view(Config('constants.frontendLoginView') . '.orderdetails', compact('orderDetails', 'userDetails'));
+    }
+    public function cancelOrder() {
+        
+        $orderId = Input::get("orderId");
+       // dd($orderId);
+        $orderInfo = Order::find($orderId);
+        $orderInfo->order_status = '6';
+        $orderInfo->update();
+       return $orderInfo;
     }
 
 }

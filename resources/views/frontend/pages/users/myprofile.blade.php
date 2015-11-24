@@ -21,8 +21,8 @@
         <aside class="widget widget_categories">
             <h4 class="widgettitle"><strong>{{ ucfirst(Session::get("userName")) }}</strong></h4>
             <p style="border-bottom: 1px dashed #d9d9d9; padding-bottom:20px;">
-                <span><a href="#">vikram.g@infiniteit.biz</a></span><br>
-                <span>mumbai</span>
+                <span><a href="#">{{ $userDetails[0]['email']}}</a></span><br>
+                <span>{{ $userDetails[0]['location']}}</span>
             </p>
             <ul>
 
@@ -45,7 +45,7 @@
             <!-- **entry-detail - Starts** -->
             <div class="entry-detail" style="width: 100%;">
                 <div class="entry-title">
-                    <h4><a href="my-profile.html">My Profile</a></h4>
+                    <h4><a href="{{ route('myProfile') }}">My Profile</a></h4>
                 </div>
                 <!-- **entry-meta-data - Starts** -->
 

@@ -142,6 +142,9 @@ Route::group(['namespace' => 'Frontend'], function() {
     post('/save-profile', ['as'=> 'saveProfile','uses'=>'UsersController@saveProfile']);
     get('/update-password', ['as'=> 'updatePassword','uses'=>'UsersController@updatePassword']);
     post('/save-update-password', ['as'=> 'saveUpdatePassword','uses'=>'UsersController@saveUpdatePassword']);
+    Route::any('/cancel-order', ['as'=> 'cancel-order','uses'=>'UsersController@cancelOrder']); 
+    
+    
     
     get('/{slug}', array('as' => 'prod', 'uses' => 'ProductController@index'));
     
