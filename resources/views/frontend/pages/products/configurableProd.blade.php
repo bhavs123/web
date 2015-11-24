@@ -30,24 +30,15 @@
             <aside class="widget widget_top_rated_products">
                 <h3>Top Selling</h3>
                 <ul class="product_list_widget">
+                    <?php foreach($upsellProd as $upSell) { ?>
                     <li> 
-                        <a href="javascript:void();"><img src="images/jew/shop/Rings.jpg" alt="image"/></a> 
-                        <h4> <a href="javascript:void();">rings</a> </h4>
+                        <a href="javascript:void();"><img src="{{asset(Config('constants.productImgPath'). $upSell['catalogimgs'][0]['filename'])}}" alt="{{asset(Config('constants.productImgPath'). $upSell['catalogimgs'][0]['alt_text'])}}"/></a> 
+                        <h4> <a href="javascript:void();">{{ $upSell['product']}}</a> </h4>
 
-                        <span class="amount">$205.00</span>
+                        <span class="amount">{{ $upSell['price']}}</span>
                     </li>
-                    <li> 
-                        <a href="javascript:void();"><img src="images/jew/shop/pendant.jpg" alt="image"/></a> 
-                        <h4> <a href="javascript:void();">pendants</a> </h4>
-
-                        <span class="amount">$220.00</span>
-                    </li>
-                    <li> 
-                        <a href="javascript:void();"><img src="images/jew/shop/brace.jpg" alt="image"/></a> 
-                        <h4> <a href="javascript:void();">bangles & bracelets</a> </h4>
-
-                        <span class="amount">$230.00</span>
-                    </li>
+                    <?php } ?>
+                   
                 </ul>
             </aside>     
             <aside class="widget widget_featured_products">

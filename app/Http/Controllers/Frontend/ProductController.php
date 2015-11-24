@@ -36,20 +36,22 @@ class ProductController extends Controller {
 
 
         $prod = Product::find($id); //die;
-
-        return view(Config('constants.frontendCatalogProductView') . '.simpleProd', compact('prod'));
+        $relatedProd = $prod->relatedproducts()->with('catalogimgs')->take(3)->get()->toArray();
+        $upsellProd = $prod->upsellproducts()->with('catalogimgs')->take(3)->get()->toArray();
+        return view(Config('constants.frontendCatalogProductView') . '.simpleProd', compact('prod' ,'relatedProd','upsellProd'));
     }
 
     public function configurable($id) {
 
 
-        $prod = Product::find($id); 
+        $prod = Product::find($id);
         $producctAttrSetId = $prod->attr_set;
         $attrOpt = AttributeSet::find($producctAttrSetId)->attributes()->where("is_filterable", "=", 1)->get()->toArray();
         $prodId = $prod->id;
         $relatedProd = $prod->relatedproducts()->with('catalogimgs')->take(3)->get()->toArray();
- 
-        return view(Config('constants.frontendCatalogProductView') . '.configurableProd', compact('prod', 'attrOpt','relatedProd'));
+        $upsellProd = $prod->upsellproducts()->with('catalogimgs')->take(3)->get()->toArray();
+// dd($upsellProd);
+        return view(Config('constants.frontendCatalogProductView') . '.configurableProd', compact('prod', 'attrOpt', 'relatedProd','upsellProd'));
     }
 
     public function getProdInfo($slug) {
@@ -211,9 +213,7 @@ class ProductController extends Controller {
         $productId = Input::get("productId");
         $prodArr = Product::where('id', '=', $attrOptnVal)->get()->toArray();
         $prodArr1 = Product::where('id', '=', $productId)->get()->toArray();
-        return  $prodArr[0]['price']."-".$prodArr1[0]['price'];
-      
-      
+        return $prodArr[0]['price'] . "-" . $prodArr1[0]['price'];
     }
 
 }
