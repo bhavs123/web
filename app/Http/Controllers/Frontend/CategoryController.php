@@ -13,8 +13,11 @@ class CategoryController extends Controller {
     
  public function index() {
        // $categories = Category::paginate(Config('constants.paginateNo'));
-       echo  Session::get('loggedinUserId');
-        return view(Config('constants.frontendCategoryView') . '.category');
+       $prod = Product::find(18);
+       $relatedProd = $prod->relatedproducts()->with('catalogimgs')->take(1)->get()->toArray();
+       $upsellProd = $prod->upsellproducts()->with('catalogimgs')->take(3)->get()->toArray();
+       Session::get('loggedinUserId');
+        return view(Config('constants.frontendCategoryView') . '.category', compact('relatedProd','upsellProd'));
     }
     
      public function getMainMenu() {
