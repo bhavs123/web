@@ -54,15 +54,16 @@
                     
                     <?php //  print_r($orderDetails); 
 foreach($orderDetails as $orderDetailsVal) {
-    // echo $orderDetailsVal->id;
+    // print_r($orderDetailsVal->cart) ;
+    $orderCart =  json_decode($orderDetailsVal->cart, true);
+   
+    dd($orderCart);
      $orderDetailsVal->productId;
-    $prodID = explode(',',$orderDetailsVal->productId);
-     // print_r($prodID);
-    $prodName = explode(',',$orderDetailsVal->productName);
-     // print_r($prodName); 
-    $prodQty = explode(',',$orderDetailsVal->productQty);
-    $prodUp = explode(',',$orderDetailsVal->productUprice);
-    $prodP = explode(',',$orderDetailsVal->productPrice);
+//    $prodID = explode(',',$orderDetailsVal->productId);
+//    $prodName = explode(',',$orderDetailsVal->productName);
+//    $prodQty = explode(',',$orderDetailsVal->productQty);
+//    $prodUp = explode(',',$orderDetailsVal->productUprice);
+//    $prodP = explode(',',$orderDetailsVal->productPrice);
   
  ?>
                     <!-- **entry-meta-data - Starts** -->
@@ -88,15 +89,20 @@ foreach($orderDetails as $orderDetailsVal) {
                                     </tr>
                                 </thead>
                                 <tbody>
-  <?php  for($i=0;$i<count($prodID);$i++)
-   {        ?>                          
+  <?php 
+  foreach($orderCart as $orderProd)
+   { 
+     
+      
+      
+      ?>                          
                                     <tr class="cart_table_item">
 
                                         <!-- The thumbnail -->
                                         <td class="product-thumbnail">
                                             <div class="cart-item-details">
                                                 <a href="#">
-                                                    <span class="customer-name">{{$prodName[$i]}}</span><br>
+                                                    <span class="customer-name">{{$orderProd['name']}}</span><br>
                                                     
                                                 </a>                                                
                                             </div>
@@ -106,7 +112,7 @@ foreach($orderDetails as $orderDetailsVal) {
 
                                         <!-- Product price -->
                                         <td class="product-price">
-                                            <span class="amount">{{$prodQty[$i]}}</span>
+                                            <span class="amount">{{$orderProd['qty']}}</span>
                                         </td>
 
                                         <!-- Quantity inputs -->
@@ -114,11 +120,11 @@ foreach($orderDetails as $orderDetailsVal) {
 
                                         <!-- Product subtotal -->
                                         <td class="product-subtotal">
-                                            <span class="amount">{{$prodUp[$i]}}</span>
+                                            <span class="amount">{{$orderProd['price']}}</span>
                                         </td>
                                         
                                          <td class="product-subtotal">
-                                            <span class="amount">{{$prodP[$i]}}</span>
+                                            <span class="amount">{{$orderProd['price']*$orderProd['qty']}}</span>
                                         </td>
 
                                     </tr> 
