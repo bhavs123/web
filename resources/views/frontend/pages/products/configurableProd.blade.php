@@ -7,6 +7,11 @@
 </style>
 @stop
 @section('content')
+<?php
+echo "<pre>";
+print_r($relatedProd); 
+echo "</pre>";
+?>
 <div id="main">
     <div class="parallax full-width-bg">
         <div class="container">
@@ -30,20 +35,20 @@
                 <h3>Top Selling</h3>
                 <ul class="product_list_widget">
                     <li> 
-                        <a href="#"><img src="images/jew/shop/Rings.jpg" alt="image"/></a> 
-                        <h4> <a href="#">rings</a> </h4>
+                        <a href="javascript:void();"><img src="images/jew/shop/Rings.jpg" alt="image"/></a> 
+                        <h4> <a href="javascript:void();">rings</a> </h4>
 
                         <span class="amount">$205.00</span>
                     </li>
                     <li> 
-                        <a href="#"><img src="images/jew/shop/pendant.jpg" alt="image"/></a> 
-                        <h4> <a href="#">pendants</a> </h4>
+                        <a href="javascript:void();"><img src="images/jew/shop/pendant.jpg" alt="image"/></a> 
+                        <h4> <a href="javascript:void();">pendants</a> </h4>
 
                         <span class="amount">$220.00</span>
                     </li>
                     <li> 
-                        <a href="#"><img src="images/jew/shop/brace.jpg" alt="image"/></a> 
-                        <h4> <a href="#">bangles & bracelets</a> </h4>
+                        <a href="javascript:void();"><img src="images/jew/shop/brace.jpg" alt="image"/></a> 
+                        <h4> <a href="javascript:void();">bangles & bracelets</a> </h4>
 
                         <span class="amount">$230.00</span>
                     </li>
@@ -57,16 +62,16 @@
                     <div class="product-wrapper">
                         <!-- **product-container - Starts** -->   
                         <div class="product-container">
-                            <a href="#"><div class="product-thumb"> <img src="images/jew/shop/prod.jpg" alt="image"/> </div> </a>
+                            <a href="javascript:void();"><div class="product-thumb"> <img src="images/jew/shop/prod.jpg" alt="image"/> </div> </a>
                             <!-- **product-title - Starts** -->
                             <div class="product-title"> 
-                                <a href="#"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
-                                <a href="#"> <span class="fa fa-unlink"></span> Read More </a>
+                                <a href="javascript:void();"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
+                                <a href="javascript:void();"> <span class="fa fa-unlink"></span> Read More </a>
                             </div> <!-- **product-title - Ends** -->
                         </div> <!-- **product-container - Ends** --> 
                         <!-- **product-details - Starts** --> 
                         <div class="product-details"> 
-                            <h5> <a href="#"> Ellents Style Grade </a> </h5>
+                            <h5> <a href="javascript:void();"> Ellents Style Grade </a> </h5>
                             <span class="amount"> $20.00 </span> 
                         </div> <!-- **product-details - Ends** --> 
                     </div> <!-- **product-wrapper - Ends** -->
@@ -85,14 +90,14 @@
                     <!-- **images - Starts** -->
                     <div class="images">
                         <div class="yith_magnifier_zoom_wrap">
-                            <a href="#" class="yith_magnifier_zoom woocommerce-main-image" > 
+                            <a href="javascript:void();" class="yith_magnifier_zoom woocommerce-main-image" > 
                                 <img src="[[ prods.image[0].filename ]]" alt="[[ prods.image[0].alt_text ]]" width="940" height="940" id="mainPreviewImg">
                             </a>
                         </div>
                         <div class="thumbnails slider">
                             <ul class="yith_magnifier_gallery"  >
                                 <li class="yith_magnifier_thumbnail" ng-repeat="prodimg in prods.image">
-                                    <a href="#"> <img src="[[ prodimg.filename ]]" alt="[[ prodimg.alt_text ]]" > </a>
+                                    <a href="javascript:void();"> <img src="[[ prodimg.filename ]]" alt="[[ prodimg.alt_text ]]" > </a>
                                 </li>
 
                             </ul>
@@ -121,10 +126,10 @@
 
                                 </li>
                                 <li>
-                                    <p><span>Tags:</span> <a href="#">[[ prods['attrs']['jewelleries'] ]]</a></p>
+                                    <p><span>Tags:</span> <a href="javascript:void();">[[ prods['attrs']['jewelleries'] ]]</a></p>
                                 </li>
                                 <li>
-                                    <p><span>Website:</span> <a href="#">www.kanhabangles.com</a></p>
+                                    <p><span>Website:</span> <a href="javascript:void();">www.kanhabangles.com</a></p>
                                 </li>
                             </ul>
                         </div>
@@ -180,11 +185,11 @@
             <div class="dt-sc-tabs-container type2 woocommerce-tabs">
                 <!-- **dt-sc-tabs-frame - Starts** -->
                 <ul class="dt-sc-tabs-frame">
-                    <li> <a href="#">Overview</a> </li>
-                    <li> <a href="#">Details</a> </li>
-                    <li> <a href="#">Payments</a> </li>
-                    <li> <a href="#">Shipping</a> </li>
-                    <li> <a href="#">Help</a> </li>
+                    <li> <a href="javascript:void();">Overview</a> </li>
+                    <li> <a href="javascript:void();">Details</a> </li>
+                    <li> <a href="javascript:void();">Payments</a> </li>
+                    <li> <a href="javascript:void();">Shipping</a> </li>
+                    <li> <a href="javascript:void();">Help</a> </li>
                 </ul>  <!-- **dt-sc-tabs-frame - Ends** -->
 
                 <!-- **dt-sc-tabs-frame-content - Starts** -->
@@ -241,16 +246,16 @@
                     <div class="product-wrapper product-three-column">
                         <!-- **product-container - Starts** -->   
                         <div class="product-container">
-                            <a href="#"><div class="product-thumb"> <img src="images/jew/shop/pendant.jpg" alt="image"/> </div> </a>
+                            <a href="javascript:void();"><div class="product-thumb"> <img src="images/jew/shop/pendant.jpg" alt="image"/> </div> </a>
                             <!-- **product-title - Starts** -->
                             <div class="product-title"> 
-                                <a href="#"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
-                                <a href="#"> <span class="fa fa-unlink"></span> Read More </a>
+                                <a href="javascript:void();"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
+                                <a href="javascript:void();"> <span class="fa fa-unlink"></span> Read More </a>
                             </div> <!-- **product-title - Ends** -->
                         </div> <!-- **product-container - Ends** --> 
                         <!-- **product-details - Starts** --> 
                         <div class="product-details"> 
-                            <h5> <a href="#"> Ellents Style Grade </a> </h5>
+                            <h5> <a href="javascript:void();"> Ellents Style Grade </a> </h5>
                             <span class="amount"> $20.00 </span> 
                         </div> <!-- **product-details - Ends** --> 
                     </div> <!-- **product-wrapper - Ends** -->  
@@ -261,16 +266,16 @@
                     <div class="product-wrapper product-three-column">
                         <!-- **product-container - Starts** -->   
                         <div class="product-container">
-                            <a href="#"><div class="product-thumb"> <img src="images/jew/shop/Rings.jpg" alt="image"/> </div> </a>
+                            <a href="javascript:void();"><div class="product-thumb"> <img src="images/jew/shop/Rings.jpg" alt="image"/> </div> </a>
                             <!-- **product-title - Starts** -->
                             <div class="product-title"> 
-                                <a href="#"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
-                                <a href="#"> <span class="fa fa-unlink"></span> Read More </a>
+                                <a href="javascript:void();"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
+                                <a href="javascript:void();"> <span class="fa fa-unlink"></span> Read More </a>
                             </div> <!-- **product-title - Ends** -->
                         </div> <!-- **product-container - Ends** --> 
                         <!-- **product-details - Starts** --> 
                         <div class="product-details"> 
-                            <h5> <a href="#"> Ellents Style Grade </a> </h5>
+                            <h5> <a href="javascript:void();"> Ellents Style Grade </a> </h5>
                             <span class="amount"> $20.00 </span> 
                         </div> <!-- **product-details - Ends** --> 
                     </div> <!-- **product-wrapper - Ends** --> 
@@ -281,16 +286,16 @@
                     <div class="product-wrapper product-three-column">
                         <!-- **product-container - Starts** -->   
                         <div class="product-container">
-                            <a href="#"><div class="product-thumb"> <img src="images/jew/shop/prod.jpg" alt="image"/> </div> </a>
+                            <a href="javascript:void();"><div class="product-thumb"> <img src="images/jew/shop/prod.jpg" alt="image"/> </div> </a>
                             <!-- **product-title - Starts** -->
                             <div class="product-title"> 
-                                <a href="#"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
-                                <a href="#"> <span class="fa fa-unlink"></span> Read More </a>
+                                <a href="javascript:void();"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
+                                <a href="javascript:void();"> <span class="fa fa-unlink"></span> Read More </a>
                             </div> <!-- **product-title - Ends** -->
                         </div> <!-- **product-container - Ends** --> 
                         <!-- **product-details - Starts** --> 
                         <div class="product-details"> 
-                            <h5> <a href="#"> Ellents Style Grade </a> </h5>
+                            <h5> <a href="javascript:void();"> Ellents Style Grade </a> </h5>
                             <span class="amount"> $20.00 </span> 
                         </div> <!-- **product-details - Ends** --> 
                     </div> <!-- **product-wrapper - Ends** -->  

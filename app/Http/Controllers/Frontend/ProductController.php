@@ -47,8 +47,8 @@ class ProductController extends Controller {
         $producctAttrSetId = $prod->attr_set;
         $attrOpt = AttributeSet::find($producctAttrSetId)->attributes()->where("is_filterable", "=", 1)->get()->toArray();
         $prodId = $prod->id;
-        $relatedProd = $prod->relatedproducts()->take(2)->get()->toArray();
-// dd($relatedProd);
+        $relatedProd = $prod->relatedproducts()->with('catalogimgs')->take(1)->get()->toArray();
+ 
         return view(Config('constants.frontendCatalogProductView') . '.configurableProd', compact('prod', 'attrOpt','relatedProd'));
     }
 
