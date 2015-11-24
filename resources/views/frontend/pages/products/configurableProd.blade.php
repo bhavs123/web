@@ -7,11 +7,7 @@
 </style>
 @stop
 @section('content')
-<?php
-echo "<pre>";
-print_r($relatedProd); 
-echo "</pre>";
-?>
+
 <div id="main">
     <div class="parallax full-width-bg">
         <div class="container">
@@ -239,14 +235,17 @@ echo "</pre>";
                 <div class="title-sep"> </div> <!-- **title-sep - Ends** -->
             </div> <!-- **hr-title - Ends** -->
             <!-- **product - Starts** -->
-            <ul class="products">
-
+            <ul class="products relatedproduct">
+<?php foreach($relatedProd as $relProd) {
+  
+     
+    ?>
                 <li>
                     <!-- **product-wrapper - Starts** -->   
                     <div class="product-wrapper product-three-column">
                         <!-- **product-container - Starts** -->   
                         <div class="product-container">
-                            <a href="javascript:void();"><div class="product-thumb"> <img src="images/jew/shop/pendant.jpg" alt="image"/> </div> </a>
+                            <a href="javascript:void();"><div class="product-thumb"> <img src="{{asset(Config('constants.productImgPath'). $relProd['catalogimgs'][0]['filename'])}}" alt="{{$relProd['catalogimgs'][0]['alt_text']}}"/> </div> </a>
                             <!-- **product-title - Starts** -->
                             <div class="product-title"> 
                                 <a href="javascript:void();"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
@@ -255,51 +254,13 @@ echo "</pre>";
                         </div> <!-- **product-container - Ends** --> 
                         <!-- **product-details - Starts** --> 
                         <div class="product-details"> 
-                            <h5> <a href="javascript:void();"> Ellents Style Grade </a> </h5>
-                            <span class="amount"> $20.00 </span> 
+                            <h5> <a href="javascript:void();"> {{ $relProd['product']}} </a> </h5>
+                            <span class="amount"> {{$relProd['price']}}</span> 
                         </div> <!-- **product-details - Ends** --> 
                     </div> <!-- **product-wrapper - Ends** -->  
                 </li>
 
-                <li>
-                    <!-- **product-wrapper - Starts** -->   
-                    <div class="product-wrapper product-three-column">
-                        <!-- **product-container - Starts** -->   
-                        <div class="product-container">
-                            <a href="javascript:void();"><div class="product-thumb"> <img src="images/jew/shop/Rings.jpg" alt="image"/> </div> </a>
-                            <!-- **product-title - Starts** -->
-                            <div class="product-title"> 
-                                <a href="javascript:void();"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
-                                <a href="javascript:void();"> <span class="fa fa-unlink"></span> Read More </a>
-                            </div> <!-- **product-title - Ends** -->
-                        </div> <!-- **product-container - Ends** --> 
-                        <!-- **product-details - Starts** --> 
-                        <div class="product-details"> 
-                            <h5> <a href="javascript:void();"> Ellents Style Grade </a> </h5>
-                            <span class="amount"> $20.00 </span> 
-                        </div> <!-- **product-details - Ends** --> 
-                    </div> <!-- **product-wrapper - Ends** --> 
-                </li>
-
-                <li class="last">
-                    <!-- **product-wrapper - Starts** -->   
-                    <div class="product-wrapper product-three-column">
-                        <!-- **product-container - Starts** -->   
-                        <div class="product-container">
-                            <a href="javascript:void();"><div class="product-thumb"> <img src="images/jew/shop/prod.jpg" alt="image"/> </div> </a>
-                            <!-- **product-title - Starts** -->
-                            <div class="product-title"> 
-                                <a href="javascript:void();"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
-                                <a href="javascript:void();"> <span class="fa fa-unlink"></span> Read More </a>
-                            </div> <!-- **product-title - Ends** -->
-                        </div> <!-- **product-container - Ends** --> 
-                        <!-- **product-details - Starts** --> 
-                        <div class="product-details"> 
-                            <h5> <a href="javascript:void();"> Ellents Style Grade </a> </h5>
-                            <span class="amount"> $20.00 </span> 
-                        </div> <!-- **product-details - Ends** --> 
-                    </div> <!-- **product-wrapper - Ends** -->  
-                </li>
+<?php } ?>   
 
             </ul> <!-- **product - Ends** -->
             <div class="dt-sc-margin10"></div>
