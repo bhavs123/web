@@ -43,13 +43,13 @@ class ProductController extends Controller {
     public function configurable($id) {
 
 
-        $prod = Product::find($id); //die;
+        $prod = Product::find($id); 
         $producctAttrSetId = $prod->attr_set;
-        // $attribute = AttributeSet::find($producctAttrSetId)->attributes()->get();
         $attrOpt = AttributeSet::find($producctAttrSetId)->attributes()->where("is_filterable", "=", 1)->get()->toArray();
-
-
-        return view(Config('constants.frontendCatalogProductView') . '.configurableProd', compact('prod', 'attrOpt'));
+        $prodId = $prod->id;
+        $relatedProd = $prod->relatedproducts()->take(2)->get()->toArray();
+// dd($relatedProd);
+        return view(Config('constants.frontendCatalogProductView') . '.configurableProd', compact('prod', 'attrOpt','relatedProd'));
     }
 
     public function getProdInfo($slug) {
