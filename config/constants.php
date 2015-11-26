@@ -1,7 +1,7 @@
 <?php
 
 return[
-    'paginateNo' => 20,
+    'paginateNo' => 10,
     'adminView' => 'admin.pages',
     'adminCategoryView' => 'admin.pages.catalog.category',
     'adminSystemUsersView' => 'admin.pages.acl.system_users',

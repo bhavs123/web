@@ -23,7 +23,7 @@ class Order extends Model {
 
     public function users() {
 
-        return $this->belongsTo('User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
     
     public function address() {
