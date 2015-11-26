@@ -78,37 +78,58 @@
                                 <i class="fa fa-fw fa-angle-down text-active"></i>
                             </span>
                             <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+                            <span class="font-bold">Orders</span>
+                        </a>
+
+                        <ul class="nav nav-sub dk">
+                            <li>
+                               <a href="{!! route('admin.orders.view') !!}">
+                                    <span>All Orders</span>
+                                </a>
+                            </li>
+                        </ul>
+                        
+                            
+                        
+                    </li> 
+                    <li>
+                        <a href class="auto">      
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
                             <span class="font-bold">Catalog</span>
                         </a>
-                        
-                           <ul class="nav nav-sub dk">
-                               
-                               
+
+                        <ul class="nav nav-sub dk">
+
+
                             <li>
                                 <a href="{!! route('admin.category.view') !!}">
                                     <span>Category</span>
                                 </a>
                             </li>
-                             <li>
+                            <li>
                                 <a href="{!! route('admin.attrSets.view') !!}">
                                     <span>Attribute Sets</span>
                                 </a>
                             </li>
-                            
-                               <li>
+
+                            <li>
                                 <a href="{!! route('admin.attrs.view') !!}">
                                     <span>Attribute</span>
                                 </a>
                             </li>
-                            
-                                      <li>
+
+                            <li>
                                 <a href="{!! route('admin.products.view') !!}">
                                     <span>Products</span>
                                 </a>
                             </li>
-                            </ul>
+                        </ul>
 
-                   
+
                     </li>
                     <ul class="nav nav-sub dk">
                         <li>
@@ -138,94 +159,94 @@
                         </li>
                     </ul>
                     </li>
-                  
-                <li>
-                    <a href="#">
-                        <i class="glyphicon glyphicon-signal"></i>
-                        <span>Projects</span>
-                    </a>
-                </li>
 
-                <li>
-                    <a href class="auto">      
-                        <span class="pull-right text-muted">
-                            <i class="fa fa-fw fa-angle-right text"></i>
-                            <i class="fa fa-fw fa-angle-down text-active"></i>
-                        </span>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-signal"></i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
 
-                        <i class="glyphicon glyphicon-th"></i>
-                        <span>Operations</span>
-                    </a>
+                    <li>
+                        <a href class="auto">      
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
 
-                    <ul class="nav nav-sub dk">
-                        <li>
-                            <a href="{!! route('admin.operations.allproducs.view') !!}">
-                                <span>All Products</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{!! route('admin.operations.orderedproducts.view') !!}">
-                                <span>Assign PI</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{!! route('admin.operations.proformainvoices.view') !!}">
-                                <span>Confirm PI</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{!! route('admin.operations.readyproducs.view') !!}">
-                                <span>Track/Update Production</span>
-                            </a>
-                        </li>
+                            <i class="glyphicon glyphicon-th"></i>
+                            <span>Operations</span>
+                        </a>
 
-                        <li>
-                            <a href="{!! route('admin.operations.logisticinfo.view') !!}">
-                                <span>Manage Consignments</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{!! route('admin.operations.warehouseproducts.view') !!}">
-                                <span>Warehouse List</span>
-                            </a>
-                        </li>      
-                    </ul>
-                </li>
-                <li>
-                    <a href class="auto">      
-                        <span class="pull-right text-muted">
-                            <i class="fa fa-fw fa-angle-right text"></i>
-                            <i class="fa fa-fw fa-angle-down text-active"></i>
-                        </span>
+                        <ul class="nav nav-sub dk">
+                            <li>
+                                <a href="{!! route('admin.operations.allproducs.view') !!}">
+                                    <span>All Products</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{!! route('admin.operations.orderedproducts.view') !!}">
+                                    <span>Assign PI</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{!! route('admin.operations.proformainvoices.view') !!}">
+                                    <span>Confirm PI</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{!! route('admin.operations.readyproducs.view') !!}">
+                                    <span>Track/Update Production</span>
+                                </a>
+                            </li>
 
-                        <i class="glyphicon glyphicon-th"></i>
-                        <span>Sales</span> 
-                    </a>
-                    <ul class="nav nav-sub dk">
-                        <li class="nav-sub-header">
-                            <a href>
-                                <span>Sales</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>By Order</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>By Product</span>
-                            </a>
-                        </li>     <li>
-                            <a href="#">
-                                <span>By Category</span>
-                            </a>
-                        </li>
+                            <li>
+                                <a href="{!! route('admin.operations.logisticinfo.view') !!}">
+                                    <span>Manage Consignments</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{!! route('admin.operations.warehouseproducts.view') !!}">
+                                    <span>Warehouse List</span>
+                                </a>
+                            </li>      
+                        </ul>
+                    </li>
+                    <li>
+                        <a href class="auto">      
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+
+                            <i class="glyphicon glyphicon-th"></i>
+                            <span>Sales</span> 
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href>
+                                    <span>Sales</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>By Order</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>By Product</span>
+                                </a>
+                            </li>     <li>
+                                <a href="#">
+                                    <span>By Category</span>
+                                </a>
+                            </li>
 
 
-                    </ul>
-                </li>
-  <li>
+                        </ul>
+                    </li>
+                    <li>
                         <a href class="auto">
                             <span class="pull-right text-muted">
                                 <i class="fa fa-fw fa-angle-right text"></i>
@@ -299,7 +320,7 @@
 
                     </ul>
                 </li>
-     
+
 
 
                 <li class="line dk hidden-folded"></li>

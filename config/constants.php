@@ -8,6 +8,7 @@ return[
     'adminRoleView' => 'admin.pages.acl.roles',
     'adminAttrSetView' => 'admin.pages.catalog.attributes.attrSets',
     'adminAttrView' => 'admin.pages.catalog.attributes.attrs',
+    'adminOrderView' => 'admin.pages.orders',
     'adminProductView' => 'admin.pages.catalog.products',
     'frontendcss' => 'public/frontend/css',
     'frontendjs' => 'public/frontend/js',

@@ -68,6 +68,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
             post('/upsell-attach', array('as' => 'admin.products.upsellAttach', 'uses' => 'ProductsController@upsellAttach'));
             post('/upsell-detach', array('as' => 'admin.products.upsellDetach', 'uses' => 'ProductsController@upsellDetach'));
         });
+         
     });
 
 
@@ -96,6 +97,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
             get('/logistic-info', ['as' => 'admin.operations.logisticinfo.view', 'uses' => 'OperationsController@logistic_info_view']);
             get('/warehouse-products', ['as' => 'admin.operations.warehouseproducts.view', 'uses' => 'OperationsController@warehouse_products_view']);
         });
+        
+         Route::group(['prefix' => 'orders'], function() {
+                get('/', ['as' => 'admin.orders.view', 'uses' => 'OrdersController@index']);
+               // get('/add', ['as' => 'admin.attrs.add', 'uses' => 'AttributesController@add']);
+               // post('/save', ['as' => 'admin.attrs.save', 'uses' => 'AttributesController@save']);
+               // get('/edit', ['as' => 'admin.attrs.edit', 'uses' => 'AttributesController@edit']);
+            });
     });
 });
 
