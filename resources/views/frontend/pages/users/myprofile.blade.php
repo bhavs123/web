@@ -69,21 +69,25 @@
 
 
 
-                        <p class="dt-sc-one-half column first" id=""><select name="country" id="country"  tabindex="13" readonly="true" class="input-text" >
+                        <p class="dt-sc-one-half column first" id="">
+                            <select name="country" id="country"  tabindex="13" readonly="true" class="input-text" >
                                 <option value="">Please select country </option>
                                 @foreach($country as $cval)
                                 <option value="{{ $cval['id']}}" <?php if ($userDetails[0]['country'] == $cval['id']) echo "selected"; ?>>{{ $cval['name']}}</option>
                                 @endforeach
 
-                            </select></p>
+                            </select>
+                        </p>
 
-                        <p class="dt-sc-one-half column" id=""><select name="state" id="state" tabindex="13" readonly="true" class="input-text" > 
+                        <p class="dt-sc-one-half column" id="">
+                            <select name="state" id="state" tabindex="13" readonly="true" class="input-text" > 
                                 <option value="">Please select state </option>
                                 @foreach($state as $sval)
                                 <option value="{{ $sval['id']}}" <?php if ($userDetails[0]['state'] == $sval['id']) echo "selected"; ?>>{{ $sval['name']}}</option>
                                 @endforeach
 
-                            </select></p>
+                            </select>
+                        </p>
 
                         <div class="dt-sc-margin10"></div>
                         <p class="form-row form-row-wide address-field validate-required" id="">
@@ -143,6 +147,100 @@
         });
         $("#submit").click(function () {
             alert("gdgddfg");
+            var firstName = $("#firstName").val();
+            var lastName = $("#lastName").val();
+            var mobile = $("#mobile").val();
+            var email = $("#cemail").val();
+            var country = $("#country").val();
+            var state = $("#state").val();
+            var address = $("#address").val();
+
+            var flag = 0;
+            if (firstName == '' || firstName == null)
+            {
+
+                $('#firstName').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#firstName').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            
+            if (lastName == '' || lastName == null)
+            {
+
+                $('#lastName').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#lastName').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            
+            if (mobile == '' || mobile == null)
+            {
+
+                $('#mobile').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#mobile').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            
+            if (email == '' || email == null)
+            {
+
+                $('#cemail').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#cemail').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            
+            if (country == '' || country == null)
+            {
+
+                $('#country').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#country').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            
+            
+            if (state == '' || state == null)
+            {
+
+                $('#state').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#state').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            
+            if (address == '' || address == null)
+            {
+
+                $('#address').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#address').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            
+            if(flag==0)
+            {
+                return true;
+            }else
+            {
+                return false;
+            }
         });
     });
 </script>

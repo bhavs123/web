@@ -310,7 +310,7 @@
             }
             if (prodQty == '0' || prodQty <= '0' )
             {
-               // alert("ghfhgfh");
+                alert("ghfhgfh");
                 $('#quantity').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
                 flag++;
             }
