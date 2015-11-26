@@ -80,11 +80,8 @@
                         </p>
 
                         <p class="dt-sc-one-half column" id="">
-                            <select name="state" id="state" tabindex="13" readonly="true" class="input-text" > 
+                            <select name="state" id="state" tabindex="13" readonly="true" class="input-text" onfocus="message();" > 
                                 <option value="">Please select state </option>
-                                @foreach($state as $sval)
-                                <option value="{{ $sval['id']}}" <?php if ($userDetails[0]['state'] == $sval['id']) echo "selected"; ?>>{{ $sval['name']}}</option>
-                                @endforeach
 
                             </select>
                         </p>
@@ -146,7 +143,8 @@
             });
         });
         $("#submit").click(function () {
-            alert("gdgddfg");
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            var numbers = /^[\d\-\+\s]+$/;
             var firstName = $("#firstName").val();
             var lastName = $("#lastName").val();
             var mobile = $("#mobile").val();
@@ -166,7 +164,7 @@
             {
                 $('#firstName').css({"border-color": "", "border-weight": "", "border-style": ""});
             }
-            
+
             if (lastName == '' || lastName == null)
             {
 
@@ -177,8 +175,8 @@
             {
                 $('#lastName').css({"border-color": "", "border-weight": "", "border-style": ""});
             }
-            
-            if (mobile == '' || mobile == null)
+
+            if (!numbers.test(mobile) || mobile == "")
             {
 
                 $('#mobile').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
@@ -188,8 +186,8 @@
             {
                 $('#mobile').css({"border-color": "", "border-weight": "", "border-style": ""});
             }
-            
-            if (email == '' || email == null)
+
+            if (!emailPattern.test(email) || email == "")
             {
 
                 $('#cemail').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
@@ -199,7 +197,7 @@
             {
                 $('#cemail').css({"border-color": "", "border-weight": "", "border-style": ""});
             }
-            
+
             if (country == '' || country == null)
             {
 
@@ -210,8 +208,8 @@
             {
                 $('#country').css({"border-color": "", "border-weight": "", "border-style": ""});
             }
-            
-            
+
+
             if (state == '' || state == null)
             {
 
@@ -222,7 +220,7 @@
             {
                 $('#state').css({"border-color": "", "border-weight": "", "border-style": ""});
             }
-            
+
             if (address == '' || address == null)
             {
 
@@ -233,15 +231,27 @@
             {
                 $('#address').css({"border-color": "", "border-weight": "", "border-style": ""});
             }
-            
-            if(flag==0)
+
+            if (flag == 0)
             {
                 return true;
-            }else
+            } else
             {
                 return false;
             }
         });
     });
+
+    function message()
+    {
+        var country_val = document.getElementById('country').value;
+       
+        if (country_val == '' || country_val == '0')
+        {
+            $('#country').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+            alert('Please Select Country First');
+
+        }
+    }
 </script>
 @stop
