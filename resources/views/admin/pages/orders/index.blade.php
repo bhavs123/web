@@ -32,7 +32,7 @@
                 <td>{{$orders->id}}</td>
                 <td>{{$orders->first_name." ".$orders->last_name}}</td>
                 <td>{{$orders->users['email']}}</td>
-                <td>{{$orders->country_id}}</td>
+                <td>{{$orders->country['name']}}</td>
                 <td>{{$orders->order_amt}}</td>
                 <td>{{$orders->created_at}}</td>
                 <td>
