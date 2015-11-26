@@ -82,7 +82,9 @@
                         <p class="dt-sc-one-half column" id="">
                             <select name="state" id="state" tabindex="13" readonly="true" class="input-text" onfocus="message();" > 
                                 <option value="">Please select state </option>
-
+                                @foreach($state as $sval)
+                                <option value="{{ $sval['id']}}" <?php if ($userDetails[0]['state'] == $sval['id']) echo "selected"; ?>>{{ $sval['name']}}</option>
+                                @endforeach
                             </select>
                         </p>
 

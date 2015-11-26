@@ -28,7 +28,7 @@
 
                 <li><a href="{{ route('myProfile') }}">My Profile</a></li>
                 <li><a href="{{ route('orderDetails') }}">My Order</a></li>
-                <li><a href="#">Reward Point</a></li>
+                <li><a href="javascript:void(0);">Reward Point</a></li>
                 <li><a href="{{ route('updatePassword') }}">Change Password</a></li>
             </ul>
         </aside>
@@ -59,7 +59,7 @@
 
 
                     <p class="dt-sc-one-half column" id="">
-                        <input type="text" class="input-text" name="cemail" id="cemail" placeholder="" value="{{ $userDetails[0]['email']}}">
+                        <input type="text" class="input-text" name="cemail" id="cemail"  placeholder="" value="{{ $userDetails[0]['email']}}" readonly >
                     </p>
                     <p class="dt-sc-one-half column" id="">
                         <input type="text" class="input-text " name="old_password" id="old_password" placeholder="Old Password" value="">
@@ -111,9 +111,7 @@
     $(document).ready(function () {
         $("#country").change(function () {
             $("#state").empty();
-
             var country_id = $("#country").val();
-
             $.ajax({
                 type: "POST",
                 url: "{{ URL::route('ajax-country-states') }}",
@@ -125,9 +123,54 @@
 
                         $("#state").append('<option value="' + value['id'] + '">' + value['name'] + '</option>');
                     });
-
                 }
             });
+        });
+        $("#submit").click(function () {
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            var numbers = /^[\d\-\+\s]+$/;
+            var old_password = $("#old_password").val();
+            var new_password = $("#new_password").val();
+            var confirm_password = $("#confirm_password").val();
+            var flag = 0;
+            if (old_password == '' || old_password == null)
+            {
+
+                $('#old_password').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#old_password').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+
+            if (new_password == '' || new_password == null)
+            {
+
+                $('#new_password').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#new_password').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            if (confirm_password == '' || confirm_password == null)
+            {
+
+                $('#confirm_password').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#confirm_password').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            if (flag == 0)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
         });
     });
 </script>
