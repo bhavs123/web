@@ -1,5 +1,6 @@
 @extends('frontend.layouts.default')
 @section('content')
+
 <!-- **Main - Starts** --> 
 <div id="main">
     <div class="parallax full-width-bg">
@@ -51,221 +52,213 @@
                     <div class="entry-title">
                         <h4><a href="{{ route('orderDetails') }}">ORDER DETAILS</a></h4>
                     </div>
-                    
-                    <?php //  print_r($orderDetails); 
-foreach($orderDetails as $orderDetailsVal) {
-    // print_r($orderDetailsVal->cart) ;
-    $orderCart =  json_decode($orderDetailsVal->cart, true);
-   
-    dd($orderCart);
-     $orderDetailsVal->productId;
+
+                    <?php
+                    //  print_r($orderDetails); 
+                    foreach ($orderDetails as $orderDetailsVal) {
+                        // print_r($orderDetailsVal->cart) ;
+                        $orderCart = json_decode($orderDetailsVal->cart, true);
+                        // dd($orderCart); 
+                        $orderDetailsVal->productId;
 //    $prodID = explode(',',$orderDetailsVal->productId);
 //    $prodName = explode(',',$orderDetailsVal->productName);
 //    $prodQty = explode(',',$orderDetailsVal->productQty);
 //    $prodUp = explode(',',$orderDetailsVal->productUprice);
 //    $prodP = explode(',',$orderDetailsVal->productPrice);
-  
- ?>
-                    <!-- **entry-meta-data - Starts** -->
-                    <div class="entry-meta-data">
-                        <p style="width: 28.33%; text-align: center;">Order ID: <span style="font-style:italic;">{{$orderDetailsVal->id}}</span></p>
-                        <p style="width: 40.33%; text-align: center;">Date: <span style="font-style:italic;">{{$orderDetailsVal->created_at}}</span></p>
-                        <p style="width: 28.33%; text-align: center;">Status: <span style="font-style:italic;">{{$orderDetailsVal->order_status}}</span></p>
-                    </div> <!-- **entry-meta-data - Ends** -->
+                        ?>
+                        <!-- **entry-meta-data - Starts** -->
+                        <div class="entry-meta-data">
+                            <p style="width: 28.33%; text-align: center;">Order ID: <span style="font-style:italic;">{{$orderDetailsVal->id}}</span></p>
+                            <p style="width: 40.33%; text-align: center;">Date: <span style="font-style:italic;">{{$orderDetailsVal->created_at}}</span></p>
+                            <p style="width: 28.33%; text-align: center;">Status: <span style="font-style:italic;">{{$orderDetailsVal->order_status}}</span></p>
+                        </div> <!-- **entry-meta-data - Ends** -->
 
 
 
-                    <div class="woocommerce">
-                        <form action="#" method="post">
+                        <div class="woocommerce">
+                            <form action="#" method="post">
 
-                            <table class="shop_table cart">
-                                <thead>
-                                    <tr>
-                                        <th class="product-thumbnail">Product Details</th>
-                                        <th class="product-quantity">Quantity</th>
-                                        <th class="product-price">Unit Price</th>
-                                       
-                                        <th class="product-subtotal">Total Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-  <?php 
-  foreach($orderCart as $orderProd)
-   { 
-     
-      
-      
-      ?>                          
-                                    <tr class="cart_table_item">
+                                <table class="shop_table cart">
+                                    <thead>
+                                        <tr>
+                                            <th class="product-thumbnail">Product Details</th>
+                                            <th class="product-quantity">Quantity</th>
+                                            <th class="product-price">Unit Price</th>
 
-                                        <!-- The thumbnail -->
-                                        <td class="product-thumbnail">
-                                            <div class="cart-item-details">
-                                                <a href="#">
-                                                    <span class="customer-name">{{$orderProd['name']}}</span><br>
-                                                    
-                                                </a>                                                
-                                            </div>
-                                        </td>
+                                            <th class="product-subtotal">Total Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($orderCart as $orderProd) {
+                                            ?>                          
+                                            <tr class="cart_table_item">
+
+                                                <!-- The thumbnail -->
+                                                <td class="product-thumbnail">
+                                                    <div class="cart-item-details">
+                                                        <a href="#">
+                                                            <span class="customer-name">{{$orderProd['name']}}</span><br>
+
+                                                        </a>                                                
+                                                    </div>
+                                                </td>
 
 
 
-                                        <!-- Product price -->
-                                        <td class="product-price">
-                                            <span class="amount">{{$orderProd['qty']}}</span>
-                                        </td>
+                                                <!-- Product price -->
+                                                <td class="product-price">
+                                                    <span class="amount">{{$orderProd['qty']}}</span>
+                                                </td>
 
-                                        <!-- Quantity inputs -->
-                                       
-
-                                        <!-- Product subtotal -->
-                                        <td class="product-subtotal">
-                                            <span class="amount">{{$orderProd['price']}}</span>
-                                        </td>
-                                        
-                                         <td class="product-subtotal">
-                                            <span class="amount">{{$orderProd['price']*$orderProd['qty']}}</span>
-                                        </td>
-
-                                    </tr> 
-<?php 
+                                                <!-- Quantity inputs -->
 
 
-   }
+                                                <!-- Product subtotal -->
+                                                <td class="product-subtotal">
+                                                    <span class="amount">{{$orderProd['price']}}</span>
+                                                </td>
 
-    ?>
-                                    <tr class="cart_table_item">
+                                                <td class="product-subtotal">
+                                                    <span class="amount">{{$orderProd['price']*$orderProd['qty']}}</span>
+                                                </td>
 
-                                        <!-- The thumbnail -->
-                                        <td class="">
-                                            <div class="cart-item-details">
-                                                <a href="#">
-                                                    <span class="customer-name">&nbsp;</span>
-                                                </a>                                                
-                                            </div>
-                                        </td>
-                                        
-                                        <td class="">
-                                            <span class="cart-item-details">&nbsp;</span>                   
-                                        </td>
-                                        <td class="">
-                                            <div class="product-quntity">Sub Total</div>
-                                        </td>
-                                        <td class="product-subtotal">
-                                            <span class="cart-item-details"><span class="amount">{{$orderDetailsVal->totalOrderAmt}}</span></span>                   
-                                        </td>
+                                            </tr> 
+                                            <?php
+                                        }
+                                        ?>
+                                        <tr class="cart_table_item">
 
-                                    </tr>
+                                            <!-- The thumbnail -->
+                                            <td class="">
+                                                <div class="cart-item-details">
+                                                    <a href="#">
+                                                        <span class="customer-name">&nbsp;</span>
+                                                    </a>                                                
+                                                </div>
+                                            </td>
 
-                                    <tr class="cart_table_item">
+                                            <td class="">
+                                                <span class="cart-item-details">&nbsp;</span>                   
+                                            </td>
+                                            <td class="">
+                                                <div class="product-quntity">Sub Total</div>
+                                            </td>
+                                            <td class="product-subtotal">
+                                                <span class="cart-item-details"><span class="amount">{{$orderDetailsVal->totalOrderAmt}}</span></span>                   
+                                            </td>
 
-                                        <!-- The thumbnail -->
-                                        
-                                        <td class="">
-                                            <div class="cart-item-details">
-                                                <a href="#">
-                                                    <span class="customer-name">&nbsp;</span>
-                                                </a>                                                
-                                            </div>
-                                        </td>
-                                        <td class="">
-                                            <span class="cart-item-details">&nbsp;</span>                   
-                                        </td>
-                                        <td class="">
-                                            <div class="product-quntity">Shipping Charges</div>
-                                        </td>
-                                        <td class="product-subtotal">
-                                            <span class="cart-item-details"><span class="amount">-</span></span>                   
-                                        </td>
+                                        </tr>
 
-                                    </tr>
+                                        <tr class="cart_table_item">
 
-                                    <tr class="cart_table_item">
-                                       
-                                        <td class="">
-                                            <div class="cart-item-details">
-                                                <a href="#">
-                                                    <span class="customer-name">&nbsp;</span>
-                                                </a>                                                
-                                            </div>
-                                        </td>
+                                            <!-- The thumbnail -->
 
-                                       
-                                        <td class="">
-                                            <span class="cart-item-details">&nbsp;</span>                   
-                                        </td>
-                                        <td class="">
-                                            <div class="product-quntity">Discount Coupen</div>
-                                        </td>
-                                        <td class="product-subtotal">
-                                            <span class="cart-item-details"><span class="amount">-</span></span>                   
-                                        </td>
+                                            <td class="">
+                                                <div class="cart-item-details">
+                                                    <a href="#">
+                                                        <span class="customer-name">&nbsp;</span>
+                                                    </a>                                                
+                                                </div>
+                                            </td>
+                                            <td class="">
+                                                <span class="cart-item-details">&nbsp;</span>                   
+                                            </td>
+                                            <td class="">
+                                                <div class="product-quntity">Shipping Charges</div>
+                                            </td>
+                                            <td class="product-subtotal">
+                                                <span class="cart-item-details"><span class="amount">-</span></span>                   
+                                            </td>
 
-                                    </tr>
+                                        </tr>
 
-                                    <tr class="cart_table_item">
+                                        <tr class="cart_table_item">
 
-                                        <!-- The thumbnail -->
-                                       
-                                        <td class="">
-                                            <div class="cart-item-details">
-                                                <a href="#">
-                                                    <span class="customer-name">&nbsp;</span>
-                                                </a>                                                
-                                            </div>
-                                        </td>
-                                        <td class="">
-                                            <span class="cart-item-details">&nbsp;</span>                   
-                                        </td>
-                                        <td class="">
-                                            <div class="product-quntity">Reward Point</div>
-                                        </td>
-                                        <td class="product-subtotal">
-                                            <span class="cart-item-details"><span class="amount">-</span></span>                   
-                                        </td>
-
-                                    </tr>
-
-                                    <tr class="cart_table_item">
-
-                                        
-                                        <td class="">
-                                            <div class="cart-item-details">
-                                                <a href="#">
-                                                    <span class="customer-name">&nbsp;</span>
-                                                </a>                                                
-                                            </div>
-                                        </td>
-                                        <td class="">
-                                            <span class="cart-item-details">&nbsp;</span>                   
-                                        </td>
-                                        <td class="">
-                                            <div class="product-quntity" style="font-weight:bold;">Shippment Total</div>
-                                        </td>
-                                        <td class="product-subtotal">
-                                            <span class="cart-item-details"><span class="amount">{{$orderDetailsVal->totalOrderAmt}}</span></span>                   
-                                        </td>
-
-                                    </tr>
+                                            <td class="">
+                                                <div class="cart-item-details">
+                                                    <a href="#">
+                                                        <span class="customer-name">&nbsp;</span>
+                                                    </a>                                                
+                                                </div>
+                                            </td>
 
 
-                                </tbody>
-                            </table>
+                                            <td class="">
+                                                <span class="cart-item-details">&nbsp;</span>                   
+                                            </td>
+                                            <td class="">
+                                                <div class="product-quntity">Discount Coupen</div>
+                                            </td>
+                                            <td class="product-subtotal">
+                                                <span class="cart-item-details"><span class="amount">-</span></span>                   
+                                            </td>
+
+                                        </tr>
+
+                                        <tr class="cart_table_item">
+
+                                            <!-- The thumbnail -->
+
+                                            <td class="">
+                                                <div class="cart-item-details">
+                                                    <a href="#">
+                                                        <span class="customer-name">&nbsp;</span>
+                                                    </a>                                                
+                                                </div>
+                                            </td>
+                                            <td class="">
+                                                <span class="cart-item-details">&nbsp;</span>                   
+                                            </td>
+                                            <td class="">
+                                                <div class="product-quntity">Reward Point</div>
+                                            </td>
+                                            <td class="product-subtotal">
+                                                <span class="cart-item-details"><span class="amount">-</span></span>                   
+                                            </td>
+
+                                        </tr>
+
+                                        <tr class="cart_table_item">
 
 
-                        </form>
+                                            <td class="">
+                                                <div class="cart-item-details">
+                                                    <a href="#">
+                                                        <span class="customer-name">&nbsp;</span>
+                                                    </a>                                                
+                                                </div>
+                                            </td>
+                                            <td class="">
+                                                <span class="cart-item-details">&nbsp;</span>                   
+                                            </td>
+                                            <td class="">
+                                                <div class="product-quntity" style="font-weight:bold;">Shippment Total</div>
+                                            </td>
+                                            <td class="product-subtotal">
+                                                <span class="cart-item-details"><span class="amount">{{$orderDetailsVal->totalOrderAmt}}</span></span>                   
+                                            </td>
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+
+                            </form>
 
 
 
-                    </div>
-                    <div style="float:right;">
-                       <?php if($orderDetailsVal->id == '1') { ?> <a href="javascript:void();" id="cancelorder-{{$orderDetailsVal->id}}" onclick="cancelorder({{$orderDetailsVal->id}})" class="dt-sc-button smallwidth cancelorder" style="margin-right:10px;"> Cancel</a>
-                       <?php } ?>
-                       <a href="#" class="dt-sc-button smallwidth" style="margin-right:10px;"> Return</a>
-                        <a href="#" class="dt-sc-button smallwidth"> Exchange </a></div>
+                        </div>
+                        <div style="float:right;">
+                            <?php if ($orderDetailsVal->statusId == '1') { ?> <a href="javascript:void();" id="cancelorder-{{$orderDetailsVal->id}}"   class="dt-sc-button smallwidth cancelorder" style="margin-right:10px;"> Cancel</a>
+                            <?php } ?>
+                            <a href="#" class="dt-sc-button smallwidth" style="margin-right:10px;"> Return</a>
+                            <a href="#" class="dt-sc-button smallwidth"> Exchange </a></div>
                         <div class="dt-sc-margin10"></div>
-<?php }?>
-                    
+                    <?php } ?>
+
                 </div> <!-- **entry-detail - Ends** -->
             </article><!-- **Blog-post - Ends** -->
 
@@ -281,24 +274,35 @@ foreach($orderDetails as $orderDetailsVal) {
 
 @endsection
 @section('myscripts')
+
 <script>
+    function cancelorder(orderId)
+    {
+        // alert(orderId);
 
+    }
+    $(document).ready(function () {
+        $('.cancelorder').click(function () {
+            var getcalId = $('.cancelorder').attr('id');
+            var calId = getcalId.split('-');
+            var orderId = calId[1];
+            var bhavana = confirm("Are you sure? This order will be canceled this order.");
+            if (bhavana == true)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '/cancel-order',
+                    data: {orderId: orderId},
+                    cache: false,
+                    success: function (data) {
 
-function cancelorder(orderId)
-{
-   // alert(orderId);
-     $.ajax({
-                type: "POST",
-                url: "{{ URL::route('cancel-order') }}",
-                data: {orderId: orderId},
-                cache: false,
-                success: function (data) {
+                        location.reload();
+                    }
+                });
+            }
 
-               location.reload();
-
-                }
-            });
-}
+        });
+    });
 
 </script>
 @stop

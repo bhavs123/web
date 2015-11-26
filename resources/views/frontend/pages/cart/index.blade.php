@@ -95,7 +95,7 @@ echo "</pre>";
 
                                     <div class="quantity">
 <!--                                        <input type="button" class="minus" value="-"/>-->
-                                        <input type="number" name="quantity" step="1" value="{{ $cartValue['qty'] }}" prod-id="{{ $cartValue->rowid }}" product-id="{{ $cartValue->id }}"  name="quantity{{ $cartValue->rowid }}" min="1" title="Qty" class="input-text qty editquantity text" />
+                                        <input type="number" name="quantity" step="1" value="{{ $cartValue['qty'] }}" prod-id="{{ $cartValue->rowid }}" product-id="{{ $cartValue->id }}"  name="quantity{{ $cartValue->rowid }}" min="1" title="Qty" class="input-text qty editquantity text" required="required" />
 <!--                                        <input type="button" class="plus" value="+"/>-->
                                     </div>			
                                 </td>
@@ -206,6 +206,7 @@ function search($array, $key, $value) {
                 }
                
             });
+            
         
     });
 </script>

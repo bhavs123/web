@@ -152,7 +152,7 @@ class UsersController extends Controller {
                         ->Join('has_products', 'orders.id', '=', 'has_products.order_id')
                         ->Join('products', 'has_products.prod_id', '=', 'products.id')
                         ->Join('order_status', 'orders.order_status', '=', 'order_status.id')
-                        ->select('orders.id','orders.cart','order_status.order_status', 'orders.created_at', DB::raw('SUM(has_products.price) as totalOrderAmt'), DB::raw("group_concat(products.product) as productName"), DB::raw("group_concat(products.id) as productId"), DB::raw("group_concat(has_products.qty) as productQty"), DB::raw("group_concat(has_products.uprice) as productUprice"), DB::raw("group_concat(has_products.price) as productPrice"))
+                        ->select('orders.id','orders.cart','order_status.order_status','order_status.id as statusId', 'orders.created_at', DB::raw('SUM(has_products.price) as totalOrderAmt'), DB::raw("group_concat(products.product) as productName"), DB::raw("group_concat(products.id) as productId"), DB::raw("group_concat(has_products.qty) as productQty"), DB::raw("group_concat(has_products.uprice) as productUprice"), DB::raw("group_concat(has_products.price) as productPrice"))
                         ->groupBy('orders.id')
                         ->where('user_id', "=", $userId)->get();
 

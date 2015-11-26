@@ -52,7 +52,7 @@
 
 
                 <div class="woocommerce">
-                    <form name="checkout" method="post" class="edit-formrow" action="{{route('saveProfile')}}">
+                    <form name="checkout" method="post" class="edit-formrow" action="{{route('saveProfile')}}" >
                         <!-- **col2-set - Starts** -->    
 
 
@@ -140,6 +140,9 @@
 
                 }
             });
+        });
+        $("#submit").click(function () {
+            alert("gdgddfg");
         });
     });
 </script>

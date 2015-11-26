@@ -26,19 +26,19 @@
     <div class="container">
         <!-- **secondary - starts** --> 
         <section id="secondary-left" class="secondary-sidebar secondary-has-left-sidebar">
- 
+
             <aside class="widget widget_top_rated_products">
                 <h3>Top Selling</h3>
                 <ul class="product_list_widget">
-                    <?php foreach($upsellProd as $upSell) { ?>
-                    <li> 
-                        <a href="javascript:void();"><img src="{{asset(Config('constants.productImgPath'). $upSell['catalogimgs'][0]['filename'])}}" alt="{{asset(Config('constants.productImgPath'). $upSell['catalogimgs'][0]['alt_text'])}}"/></a> 
-                        <h4> <a href="javascript:void();">{{ $upSell['product']}}</a> </h4>
+                    <?php foreach ($upsellProd as $upSell) { ?>
+                        <li> 
+                            <a href="javascript:void();"><img src="{{asset(Config('constants.productImgPath').$upSell['catalogimgs'][0]['filename'])}}" alt="{{asset(Config('constants.productImgPath').$upSell['catalogimgs'][0]['alt_text'])}}"/></a> 
+                            <h4> <a href="javascript:void();">{{ $upSell['product']}}</a> </h4>
 
-                        <span class="amount">{{ $upSell['price']}}</span>
-                    </li>
+                            <span class="amount">{{ $upSell['price']}}</span>
+                        </li>
                     <?php } ?>
-                   
+
                 </ul>
             </aside>     
             <aside class="widget widget_featured_products">
@@ -158,11 +158,11 @@
                             </div>
                             <div class="quantity buttons_added">
                                 <input type="button" class="minus" value="-">
-                                <input type="number"  class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                <input type="number"  class="input-text qty text" title="Qty" value="1" name="quantity" id="quantity" min="1" step="1" required="">
                                 <input type="button" class="plus" value="+">
                             </div>
 
-                            <button id="prodId-[[ prods.id ]]" class="addTCartId single_add_to_cart_button button alt"  ng-click="addTocart();">Buy Now</button>
+                            <button id="prodId-[[ prods.id ]]" class="addTCartId single_add_to_cart_button button alt" >Buy Now</button> <!--  ng-click="addTocart();"-->
                         </form> 
 
                     </div> <!-- **summary - Ends** -->
@@ -227,31 +227,29 @@
             </div> <!-- **hr-title - Ends** -->
             <!-- **product - Starts** -->
             <ul class="products relatedproduct">
-<?php foreach($relatedProd as $relProd) {
-  
-     
-    ?>
-                <li>
-                    <!-- **product-wrapper - Starts** -->   
-                    <div class="product-wrapper product-three-column">
-                        <!-- **product-container - Starts** -->   
-                        <div class="product-container">
-                            <a href="javascript:void();"><div class="product-thumb"> <img src="{{asset(Config('constants.productImgPath'). $relProd['catalogimgs'][0]['filename'])}}" alt="{{$relProd['catalogimgs'][0]['alt_text']}}"/> </div> </a>
-                            <!-- **product-title - Starts** -->
-                            <div class="product-title"> 
-                                <a href="javascript:void();"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
-                                <a href="javascript:void();"> <span class="fa fa-unlink"></span> Read More </a>
-                            </div> <!-- **product-title - Ends** -->
-                        </div> <!-- **product-container - Ends** --> 
-                        <!-- **product-details - Starts** --> 
-                        <div class="product-details"> 
-                            <h5> <a href="javascript:void();"> {{ $relProd['product']}} </a> </h5>
-                            <span class="amount"> {{$relProd['price']}}</span> 
-                        </div> <!-- **product-details - Ends** --> 
-                    </div> <!-- **product-wrapper - Ends** -->  
-                </li>
+                <?php foreach ($relatedProd as $relProd) {
+                    ?>
+                    <li>
+                        <!-- **product-wrapper - Starts** -->   
+                        <div class="product-wrapper product-three-column">
+                            <!-- **product-container - Starts** -->   
+                            <div class="product-container">
+                                <a href="javascript:void();"><div class="product-thumb"> <img src="{{asset(Config('constants.productImgPath').$relProd['catalogimgs'][0]['filename'])}}" alt="{{$relProd['catalogimgs'][0]['alt_text']}}"/> </div> </a>
+                                <!-- **product-title - Starts** -->
+                                <div class="product-title"> 
+                                    <a href="javascript:void();"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
+                                    <a href="javascript:void();"> <span class="fa fa-unlink"></span> Read More </a>
+                                </div> <!-- **product-title - Ends** -->
+                            </div> <!-- **product-container - Ends** --> 
+                            <!-- **product-details - Starts** --> 
+                            <div class="product-details"> 
+                                <h5> <a href="javascript:void();"> {{ $relProd['product']}} </a> </h5>
+                                <span class="amount"> {{$relProd['price']}}</span> 
+                            </div> <!-- **product-details - Ends** --> 
+                        </div> <!-- **product-wrapper - Ends** -->  
+                    </li>
 
-<?php } ?>   
+                <?php } ?>   
 
             </ul> <!-- **product - Ends** -->
             <div class="dt-sc-margin10"></div>
@@ -281,27 +279,96 @@
                 }
             });
         });
+        $(".addTCartId").click(function () {
 
-        $(document).on('change', '#attributeOptVal', function () {
-            var attrOptnVal = $('#attributeOptVal').val();
-          //  alert(attrOptnVal); 
-            var productId = $('#prodId').val();
-            // alert(productId); 
-            $.ajax({
-                type: "POST",
-                url: "{{ URL::route('ajax-get-attr-price') }}",
-                data: {attrOptnVal: attrOptnVal, productId: productId},
-                cache: false,
-                success: function (data) {
-                    var attrOptPrice = data.split('-');
-                    var prodTotal = parseFloat(attrOptPrice[0]) + parseFloat(attrOptPrice[1]);
-                    $('#priceOptType').text(prodTotal);
-                    $('#prodPrice').val(prodTotal);
-                    $('#chlidProductId').val(attrOptnVal)
-                }
-            });
+            var prodQty = $('#quantity').val();
+
+            var attributeval = $('#attributeval').val();
+
+            var attributeOptVal = $('#attributeOptVal').val();
+
+            var flag = 0;
+            if (attributeval == '' || attributeval == null)
+            {
+
+                $('#attributeval').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#attributeval').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            if (attributeOptVal == '' || attributeOptVal == null)
+            {
+
+                $('#attributeOptVal').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#attributeOptVal').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            if (prodQty == '0' || prodQty <= '0' )
+            {
+               // alert("ghfhgfh");
+                $('#quantity').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#quantity').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            //  alert(flag);
+            if (flag == '0') {
+                $.ajax({
+                    type: "POST",
+                    url: "/add-to-cart",
+                    data: $("form[name='fromcart']").serialize(),
+                    cache: false,
+                    success: function (data) {
+
+                        data = data.split("||||||");
+
+                        $(".custom-top-right .cartQty").html("(" + data[1] + ")");
+                        $(".cart-container .open-panel").html(data[0]);
+
+                        //$("#ModifyCart").modal('toggle');
+                        // $("#productAdded").modal('toggle');
+                    }
+                });
+
+
+            } else
+            {
+                return false;
+            }
+
+        });
+
+
+    });
+
+    $(document).on('change', '#attributeOptVal', function () {
+        // alert("khckjhvf");
+        var attrOptnVal = $('#attributeOptVal').val();
+        // alert(attrOptnVal); 
+        var productId = $('#prodId').val();
+        // alert(productId); 
+        $.ajax({
+            type: "POST",
+            url: "{{ URL::route('ajax-get-attr-price') }}",
+            data: {attrOptnVal: attrOptnVal, productId: productId},
+            cache: false,
+            success: function (data) {
+                var attrOptPrice = data.split('-');
+                var prodTotal = parseFloat(attrOptPrice[0]) + parseFloat(attrOptPrice[1]);
+                $('#priceOptType').text(prodTotal);
+                $('#prodPrice').val(prodTotal);
+                $('#chlidProductId').val(attrOptnVal)
+            }
         });
     });
+
 
 </script>
 
