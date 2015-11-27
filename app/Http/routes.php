@@ -151,7 +151,7 @@ Route::group(['namespace' => 'Frontend'], function() {
     get('/update-password', ['as'=> 'updatePassword','uses'=>'UsersController@updatePassword']);
     post('/save-update-password', ['as'=> 'saveUpdatePassword','uses'=>'UsersController@saveUpdatePassword']);
     Route::any('/cancel-order', ['as'=> 'cancel-order','uses'=>'UsersController@cancelOrder']); 
-    
+    Route::any('/ajax-get-address', ['as'=> 'ajax-get-address','uses'=>'CheckoutController@ajaxGetAddress']); 
     
     
     get('/{slug}', array('as' => 'prod', 'uses' => 'ProductController@index'));

@@ -40,7 +40,7 @@ class CheckoutCOntroller extends Controller {
         $address->address2 = Input::get('shipping_address_2');
         $address->address = Input::get('shipping_landmark');
         $address->postcode = Input::get('shipping_postcode');
-        $address->city = Input::get('shipping_city');
+        $address->city = Input::get('shipping_landmark');
         $address->country_id = Input::get('shipping_country');
         $address->zone_id = Input::get('shipping_state');
         $address->save();
@@ -127,6 +127,13 @@ class CheckoutCOntroller extends Controller {
         }
         
           return view(Config('constants.frontendCheckoutView') . '.response');
+    }
+    public function ajaxGetAddress()
+    {
+         $addr_id = Input::get('addr_id');
+        $addresses = Address::where('id', '=', $addr_id)->get()->toArray();
+      // dd($addresses);
+      // return $addresses;
     }
     
     
