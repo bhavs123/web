@@ -59,34 +59,30 @@
                                 <input class="submit" value="Log-In" type="submit" ng-disabled='userLogin.$invalid'>    
                             </form>   
                         </div> 
-                        <div class="form-wrapper register hide" ng-app="app" id="new-account">
+                        <div class="form-wrapper register hide"  id="new-account">
                             <form  method="post" id="reg_form" name="newRegister" action="{{ route('saveCustomer') }}" novalidate><!--  -->
                                 <p class="dt-sc-one-half column first" >
-                                    <input placeholder="First Name *" id="first_name" name="first_name" type="text" ng-model="first_name" required>
-                                    <span style="color:red" ng-show="newRegister.first_name.$dirty && newRegister.first_name.$error.required">First Name is required.</span>
+                                    <input placeholder="First Name *" id="first_name" name="first_name" type="text" required>
+                                   
                                 </p>
                                 
                                <p class="dt-sc-one-half column">
-                                    <input placeholder="Last Name *" id="last_name" name="last_name" type="text"  ng-model="last_name" required>
-                                    <span style="color:red" ng-show="newRegister.last_name.$dirty && newRegister.last_name.$error.required">First Name is required.</span>
+                                    <input placeholder="Last Name *" id="last_name" name="last_name" type="text" required>
+                                  
                                 </p>
                                 
                                 <p class="dt-sc-one-half column first">
-                                    <input placeholder="Email Address *" id="email_link" name="email" type="email" ng-model="user.email" unique-email="{key: 'users', property: 'email'}" required>
-                                <span style="color:red" ng-show="newRegister.email.$dirty && newRegister.email.$error.required">Email is required.</span>
-                                 <span style="color:red" ng-show="newRegister.email.$dirty && newRegister.email.$error.unique">Email is already taken.</span>
-                                 <span style="color:red" id="uniqueEmail"></span> 
+                                    <input placeholder="Email Address *" id="email_link" name="email" type="email"  unique-email="{key: 'users', property: 'email'}" required>
+                                
                                 </p>
                                 
                                 <p class="dt-sc-one-half column">
-                                    <input placeholder="Mobile Number *" id="contact_no" name="contact_no" type="text" ng-pattern="/^[\d\-\+\s/\,]+$/" ng-model="contact_no" required> 
-                                    <span style="color:red"  ng-show="newRegister.contact_no.$dirty && newRegister.contact_no.$error.required">Mobile Number is required.</span>
-                                    <span style="color:red" ng-show="newRegister.contact_no.$dirty && newRegister.contact_no.$error.pattern">Invalid Mobile Number.</span>
-                                </p>
+                                    <input placeholder="Mobile Number *" id="contact_no" name="contact_no" type="text"  required> 
+                                     </p>
                                 
                                 <p class="dt-sc-one-half column first">
-                                    <input placeholder="Password *" id="password" name="password"  type="password" ng-model="password" required>
-                                <span style="color:red" ng-show="newRegister.password.$dirty && newRegister.password.$error.required">User Password is required.</span>
+                                    <input placeholder="Password *" id="password" name="password"  type="password"  required>
+                               
                                     </p>
                                     
                                 
@@ -117,9 +113,8 @@
                                      <input class=" "  name="location" id="location" Placeholder="Address Line 3"   autocomplete="off" type="text">
                                 </p> 
                                      <p class="dt-sc-one-half column ">
-                                <input class=" "  name="alternate_no" Placeholder="Alternate Number" ng-pattern="/^[\d\-\+\s/\,]+$/" ng-model="alternate_no"  type="text">
-                                <span style="color:red"  ng-show="newRegister.alternate_no.$dirty && newRegister.alternate_no.$error.required"> Number is required.</span>
-                                 <span style="color:red" ng-show="newRegister.alternate_no.$dirty && newRegister.alternate_no.$error.pattern">Invalid  Number.</span>
+                                <input class=" "  name="alternate_no" Placeholder="Alternate Number"   type="text">
+                                
                                 </p> 
                                
                                
@@ -251,16 +246,12 @@
 
                                         <p class="form-row form-row-last validate-required" id=""><label class="">Last Name *</label><input type="text" class="input-text " name="shipping_last_name" id="shipping_last_name" placeholder=""  value=""  /></p><div class="clear"></div>
 
-                                        <p class="form-row form-row-first validate-required" id=""><label class="">Mobile No. *</label><input type="text" class="input-text " name="shipping_mobile" id="shipping_mobile" placeholder=""  value=""  /></p>
-
-                                        <p class="form-row form-row-last validate-required" id=""><label class="">Landmark</label><input type="text" class="input-text " name="shipping_landmark" id="shipping_landmark" placeholder=""  value=""  /></p><div class="clear"></div>
-
-                                        <p class="form-row form-row-wide address-field validate-required" id=""><label class="">Address 1</label><input type="text" class="input-text " name="shipping_address_1" id="shipping_address_1" placeholder="Street Name"  value=""  /></p>
-
-                                        <p class="form-row form-row-wide address-field" id=""><label for="shipping_address_2" class="">Address 2</label><input type="text" class="input-text" name="shipping_address_2" id="" placeholder="Apartment Name, No.. etc"  value=""  /></p>
+                                          <p class="form-row form-row-first validate-required" id=""><label class="">Email Id. *</label><input type="text" class="input-text " name="shipping_mobile" id="shipping_mobile" placeholder=""  value=""  /></p>
+                                          
+                                        <p class="form-row form-row-last validate-required" id=""><label class="">Mobile No. *</label><input type="text" class="input-text " name="shipping_mobile" id="shipping_mobile" placeholder=""  value=""  /></p><div class="clear"></div>
 
                                         <div class="form-row form-row-first address-field update_totals_on_change validate-required" id="shipping_country_field">
-                                            <label for="shipping_country" class="">Country *</label>
+                                            <label  class="">Country *</label>
                                             <div class="selection-box">    
                                                 <select name="shipping_country" id="shipping_country" class="country_to_state country_select" >
 
@@ -270,7 +261,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <noscript><input type="submit" name="woocommerce_checkout_update_totals" value="Update country" /></noscript></div>
+                                           </div>
 
 
                                         <div class="form-row form-row-last address-field validate-required">		
@@ -284,15 +275,23 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                        </div>
 
+                                        <p class="form-row form-row-first address-field validate-required" id=""><label class="">Address 1</label><input type="text" class="input-text " name="shipping_address_1" id="shipping_address_1" placeholder="Street Name"  value=""  /></p>
 
-                                            <p class="form-row form-row-first address-field validate-required" id=""><label>Town / City *</label><input type="text" class="input-text" id="shipping_postcode" value=""  placeholder="Town / City" name="shipping_city" /></p>
-
-                                            <p class="form-row form-row-last address-field validate-required validate-postcode" id="shipping_postcode_field">
+                                        <p class="form-row form-row-last address-field" id=""><label for="shipping_address_2" class="">Address 2</label><input type="text" class="input-text" name="shipping_address_2" id="" placeholder="Apartment Name, No.. etc"  value=""  /></p><div class="clear"></div>
+                                        
+                                        <p class="form-row form-row-first validate-required" id=""><label class="">Landmark</label><input type="text" class="input-text " name="shipping_landmark" id="shipping_landmark" placeholder=""  value=""  /></p>
+                                        
+                                         <p class="form-row form-row-last address-field validate-required validate-postcode" id="shipping_postcode_field">
                                                 <label for="shipping_postcode" class="">Postcode *</label>
                                                 <input type="text" class="input-text " name="shipping_postcode" id="shipping_postcode" placeholder="Postcode / Zip"  value=""  /></p>
                                             <div class="clear"></div>
+                                            
+                                        
 
+
+                                            
                                         </div> <!-- **shipping_address - Ends** --> 
 
 
@@ -301,11 +300,11 @@
 
                                 </div> <!-- **col-2 - Ends** -->
 
-                            </div> <!-- **col2-set - Ends** -->
-                            <div style="float:right;">
-                                <input type="submit" class="button" name="check" value="Submit" /></a>
-                                <a href="{{ URL::route('cart') }}" class="dt-sc-button smallwidth"> Back </a></div>
-
+                             <!-- **col2-set - Ends** -->
+                            <div style="float:right;width:15%;">
+                                 <a href="javascript:void();"><input type="submit" class="button" name="check" value="Submit" /></a>
+                                <a href="{{ URL::route('cart') }}" class="dt-sc-button smallwidth"><input type="button" class="button" name="button" value="Back" /></a></div>
+</div>
                      <!-- **checkout - Ends** -->
                 </div> 
                         </form>
@@ -385,13 +384,16 @@
 
                                 </div> <!-- **col-2 - Ends** -->
 
+                                
                             </div> <!-- **col2-set - Ends** -->
-                            <div style="float:right;">
-                                <input type="submit" class="button" name="check" value="Submit" /></a>
-                                <a href="{{ URL::route('cart') }}" class="dt-sc-button smallwidth"> Back </a></div>
+                            
 
                      <!-- **checkout - Ends** -->
                 </div> 
+                        
+                        <div class="col-4" style="float:right;width:14%"> 
+                            <a href="javascript:void();"><input type="submit" class="button" name="check" value="Submit" /></a>
+                                <a href="{{ URL::route('cart') }}" class="dt-sc-button smallwidth"><input type="button" class="button" name="button" value="Back" /></a></div>
                         </form><!-- **woocommerce - Ends** --> 
                
                 </div>

@@ -31,11 +31,35 @@ class UsersController extends Controller {
     public function saveCustomer() {
         // dd('sdfasfsf');
         // dd(Input::all());
+        $register_home = Input::get('register_home');
         $user = User::create(Input::except('password'));
 
         $user->password = Hash::make(Input::get('password'));
         $user->update();
-        return view(Config('constants.frontendLoginView') . '.login');
+        if($register_home == 'register_home')
+        {
+            return redirect()->route('login');
+        }  else {
+        $email = Input::get('email');
+        $userDetails = User::where('email', "=", $email)->get()->first();
+            $userData = [
+            'email' => Input::get('email'),
+            'password' => Input::get('password')
+        ];
+
+        if (Auth::attempt($userData, true)) {
+
+
+            $user = User::with('roles')->find($userDetails->id);
+            Session::put('loggedinUserId', $userDetails->id);
+            Session::put('userName', $userDetails->first_name . " " . $userDetails->last_name);
+
+
+           return redirect()->back();
+        }
+            
+        }
+       // return view(Config('constants.frontendLoginView') . '.login');
     }
 
     public function isUniqueValue() {

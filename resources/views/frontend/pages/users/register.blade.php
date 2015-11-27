@@ -15,6 +15,8 @@
         <div class="dt-sc-clear"></div>                            
         <div class="form-wrapper register" ng-app="app">
             <form  method="post" id="reg_form" name="newRegister" action="{{ route('saveCustomer')}}" novalidate><!--  -->
+                <input type="text" name="register_home" value="register_home">
+                
                 <p class="dt-sc-one-half column first" >
                     <input placeholder="First Name *" id="first_name" name="first_name" type="text" ng-model="first_name" required>
                     <span style="color:red" ng-show="newRegister.first_name.$dirty && newRegister.first_name.$error.required">First Name is required.</span>
