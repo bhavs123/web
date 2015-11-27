@@ -17,7 +17,7 @@
 <?php
 echo "<pre>";
 //print_r($cart);
-echo "</pre>"; 
+echo "</pre>";
 ?>
 @section('content')
 
@@ -62,7 +62,7 @@ echo "</pre>";
                                 <th class="product-name">Name</th>
                                 <th class="product-price">Price</th>
                                 <th class="product-quantity">Quantity</th>
-                                
+
                                 <th class="product-total">Total</th>
                                 <th class="product-remove">&nbsp;</th>
                             </tr>
@@ -86,7 +86,7 @@ echo "</pre>";
                                 </td>
 
                                 <!-- Product price -->
-                                
+
                                 <td class="product-subtotal">
                                     <span class="amount">{{ $cartValue['price'] }}</span>
                                 </td>
@@ -95,14 +95,14 @@ echo "</pre>";
 
                                     <div class="quantity">
 <!--                                        <input type="button" class="minus" value="-"/>-->
-                                        <input type="number" name="quantity" step="1" value="{{ $cartValue['qty'] }}" prod-id="{{ $cartValue->rowid }}" product-id="{{ $cartValue->id }}"  name="quantity{{ $cartValue->rowid }}" min="1" title="Qty" class="input-text qty editquantity text" required="required" />
+                                        <input type="number" name="quantity" step="1" value="{{ $cartValue['qty'] }}" prod-id="{{ $cartValue->rowid }}" product-id="{{ $cartValue->id }}"  name="quantity{{ $cartValue->rowid }}" min="1" title="Qty" class="input-text qty editquantity text" id="quantity" onkeypress="return isNumber(event);" required="required" />
 <!--                                        <input type="button" class="plus" value="+"/>-->
                                     </div>			
                                 </td>
 
                                 <!-- Product subtotal -->
-                                
-                                 <td class="product-subtotal">
+
+                                <td class="product-subtotal">
                                     <span class="{{ $cartValue->rowid }}">{{ $cartValue['qty']*$cartValue['price'] }}</span>
                                 </td>
 
@@ -110,7 +110,7 @@ echo "</pre>";
                                 <td class="product-remove">
                                     <a href="javascript:void(0);" class="CartRemoveItem remove" data-rowid='{{$cartValue->rowid}}' title="Remove this item">&times;</a></td>
                             </tr>
-                           
+
 
                             <?php
 //                                echo '<pre>';
@@ -118,10 +118,10 @@ echo "</pre>";
 //                                 echo '</pre>';
                             ?>
                             @endforeach
-                             <tr>
-                                 <td colspan="4"><span class="amount">Subtotal (Rs.)</span></td>
-                                    <td> <span class="fwb grandTotal">{{ Cart::total() }}</span> </td>
-                                </tr>
+                            <tr>
+                                <td colspan="4"><span class="amount">Subtotal (Rs.)</span></td>
+                                <td> <span class="fwb grandTotal">{{ Cart::total() }}</span> </td>
+                            </tr>
                         </tbody>
                     </table>
 
@@ -184,30 +184,69 @@ function search($array, $key, $value) {
 
             });
         });
-         $(".qty").on('input', function() {
-           //  alert("gsdgsdg");
-                var qty = $(this).val();
-                var rowid = $(this).attr("prod-id");
-                var productId = $(this).attr("product-id");
-        if (qty !== "" && qty > 0) {
-                  
-                    $.ajax({
-                        url:  "{{ URL::route('editCart') }}",
-                        type: "POST",
-                        data: {rowid: rowid, qty: qty, productId: productId},
-                        success: function(data) {
-                             var totals = data.split("||||||||||");
-                                $("."+rowid).html(totals[0]);
-                                $(".grandTotal").html(totals[1]);
-                                //$(".TotalCartAmt").text(totals[1]);
-                                //$(".orderAmt").val(totals[1]);
-                            } 
-                    });
+        // $('input[name="quantity"]').on('change', function () {
+        $(".qty").on('input', function () {
+            //  alert("gsdgsdg");
+            var qty = $(this).val();
+            var flag = 0;
+            if(qty==''|| qty==null)
+            {
+             $('#quantity').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#quantity').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            var rowid = $(this).attr("prod-id");
+            var productId = $(this).attr("product-id");
+            var dec_chk = false;
+            if (Number(qty) % 1 != 0)
+            {
+                dec_chk = true;
+            }
+            if(flag=='0')
+            {
+            if (qty !== "" && qty > 0) {
+                
+                $.ajax({
+                    url: "{{ URL::route('editCart') }}",
+                    type: "POST",
+                    data: {rowid: rowid, qty: qty, productId: productId},
+                    success: function (data) {
+                        // alert(data);
+                        var totals = data.split("||||||||||");
+                        $("." + rowid).html(totals[0]);
+                        $(".grandTotal").html(totals[1]);
+                        //$(".TotalCartAmt").text(totals[1]);
+                        //$(".orderAmt").val(totals[1]);
+                    }
+                });
+                if (dec_chk)
+                {
+
+
+                    alert("Only Numbers Please");
+
+                    return false;
                 }
-               
-            });
-            
-        
+            }
+    }else {
+        return false;
+    }
+
+        });
+
     });
+</script>
+<script>
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 49 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
 </script>
 @stop

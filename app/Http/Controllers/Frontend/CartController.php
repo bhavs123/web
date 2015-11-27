@@ -303,7 +303,19 @@ public function configProduct($prod_id,$chlidProductId,$quantity,$price) {
 
          $product = Product::find(Input::get("productId"));
          $quantity = Input::get("qty");
-
+      
+                if(strstr($quantity, '.') != false)
+		{
+                  
+                       $cart = Cart::instance("shopping")->content();
+                       
+                        foreach($cart as $cartVal){
+                            $quantity = $cartVal->qty;
+                            
+                        }
+                            
+		}
+              
         if ($product->prod_type == 1 || $product->prod_type == 2) {
             $stock = $product->stock;
         } else if ($product->prod_type == 3) {
@@ -312,13 +324,11 @@ public function configProduct($prod_id,$chlidProductId,$quantity,$price) {
         }
 
 
-        Cart::instance('shopping')->update(Input::get("rowid"), ['qty' => Input::get("qty")]);
+        Cart::instance('shopping')->update(Input::get("rowid"), ['qty' => $quantity]); 
         echo Cart::instance('shopping')->get(Input::get("rowid"))->subtotal;
         echo "||||||||||" . Cart::total();
 
-//        Cart::instance('shopping')->update(Input::get("rowid"), ['qty' => Input::get("qty")]);
-//        echo Cart::instance('shopping')->get(Input::get("rowid"))->subtotal;
-//        echo "||||||||||" . Cart::total();
+
     }
 
 

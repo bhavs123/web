@@ -310,7 +310,7 @@
             }
             if (prodQty == '0' || prodQty <= '0' )
             {
-                alert("ghfhgfh");
+             
                 $('#quantity').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
                 flag++;
             }
@@ -318,7 +318,7 @@
             {
                 $('#quantity').css({"border-color": "", "border-weight": "", "border-style": ""});
             }
-            //  alert(flag);
+         
             if (flag == '0') {
                 $.ajax({
                     type: "POST",
@@ -332,8 +332,6 @@
                         $(".custom-top-right .cartQty").html("(" + data[1] + ")");
                         $(".cart-container .open-panel").html(data[0]);
 
-                        //$("#ModifyCart").modal('toggle');
-                        // $("#productAdded").modal('toggle');
                     }
                 });
 
@@ -349,11 +347,11 @@
     });
 
     $(document).on('change', '#attributeOptVal', function () {
-        // alert("khckjhvf");
+      
         var attrOptnVal = $('#attributeOptVal').val();
-        // alert(attrOptnVal); 
+       
         var productId = $('#prodId').val();
-        // alert(productId); 
+    
         $.ajax({
             type: "POST",
             url: "{{ URL::route('ajax-get-attr-price') }}",

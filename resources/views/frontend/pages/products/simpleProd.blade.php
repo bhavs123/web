@@ -250,7 +250,7 @@
             {
                 $('#quantity').css({"border-color": "", "border-weight": "", "border-style": ""});
             }
-          //  alert(flag);
+          
             if (flag == '0') {
                 $.ajax({
                     type: "POST",
