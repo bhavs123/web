@@ -60,37 +60,39 @@
                             </form>   
                         </div> 
                         <div class="form-wrapper register hide"  id="new-account">
-                            <form  method="post" id="reg_form" name="newRegister" action="{{ route('saveCustomer')}}" novalidate><!--  -->
+                            <form  method="post" id="regi_form" name="newRegister" action="{{ route('saveCustomer')}}" novalidate><!--  -->
                                 <p class="dt-sc-one-half column first" >
-                                    <input placeholder="First Name *" id="first_name" name="first_name" type="text" required>
+                                    <input placeholder="First Name *" id="reg_first_name" name="reg_first_name" type="text" value="" required="required">
 
                                 </p>
 
                                 <p class="dt-sc-one-half column">
-                                    <input placeholder="Last Name *" id="last_name" name="last_name" type="text" required>
+                                    <input placeholder="Last Name *" id="reg_last_name" name="reg_last_name" type="text" value="" required="required">
 
                                 </p>
 
                                 <p class="dt-sc-one-half column first">
-                                    <input placeholder="Email Address *" id="email_link" name="email" type="email"  unique-email="{key: 'users', property: 'email'}" required>
+                                    <input placeholder="Email Address *" id="regemail" name="regemail" type="email"  value="" required="required">
 
                                 </p>
 
                                 <p class="dt-sc-one-half column">
-                                    <input placeholder="Mobile Number *" id="contact_no" name="contact_no" type="text"  required> 
+                                    <input placeholder="Mobile Number *" id="regmobile" name="regmobile" type="text"  value="" required="required"> 
                                 </p>
 
                                 <p class="dt-sc-one-half column first">
-                                    <input placeholder="Password *" id="password" name="password"  type="password"  required>
+                                    <input placeholder="Password *" id="regpassword" name="regpassword"  type="password"  value="" required="required">
 
                                 </p>
 
 
-                                <p class="dt-sc-one-half column"> <input placeholder="Confirm Password *" id="password" name="cpassword"  type="password"  required></p>
+                                <p class="dt-sc-one-half column"> 
+                                    <input placeholder="Confirm Password *" id="regcpassword" name="regcpassword"  type="password"  value="" required="required">
+                                </p>
 
 
                                 <p class="dt-sc-one-half column first">
-                                    <select name="country" id="country"  tabindex="13" readonly="true" >
+                                    <select name="country" id="regcountry" required="required" >
                                         <option value="">Please select country </option>
                                         @foreach($country as $cval)
                                         <option value="{{ $cval['id']}}">{{ $cval['name']}}</option>
@@ -101,7 +103,7 @@
 
 
                                 <p class="dt-sc-one-half column">
-                                    <select name="state" id="state" tabindex="13" readonly="true" >
+                                    <select name="state" id="regstate" required="required" onfocus="regmessage();" >
                                         <option value="">Please select state </option>
                                         @foreach($state as $sval)
                                         <option value="{{ $sval['id']}}">{{ $sval['name']}}</option>
@@ -110,46 +112,33 @@
                                     </select>
                                 </p> 
                                 <p class="dt-sc-one-half column first ">
-                                    <input class=" "  name="location" id="location" Placeholder="Address Line 3"   autocomplete="off" type="text">
+                                    <input class=" "  name="regaddress" id="regaddress" Placeholder="Address Line 3"   autocomplete="off" type="text" value="" required="required">
                                 </p> 
                                 <p class="dt-sc-one-half column ">
-                                    <input class=" "  name="alternate_no" Placeholder="Alternate Number"   type="text">
+                                    <input class=" "  name="landmark" id="reglandmark" Placeholder="Landmark *"    autocomplete="off" type="text" value="" required="required">
+
 
                                 </p> 
 
-
-
                                 <p class="dt-sc-one-half column  first">
-                                    <input class=" "  name=" " Placeholder="Landmark *"    autocomplete="off" type="text">
+                                    <input class=" "  name="alternate_no" id="regaltnumber" Placeholder="Alternate Number"   type="text" value="" required="required">
                                 </p> 
                                 <p class="dt-sc-one-half column  ">
-                                    <input class=" "  name=" " Placeholder="Pin Code * "  autocomplete="off" type="text">
+                                    <input class=" "  name="pin" id="regpin" Placeholder="Pin Code * "  autocomplete="off" type="text" value="" required="required">
                                 </p> 
 
-                                <p class="dt-sc-one-half column  first">
-                                    <select class=" " tabindex="13" readonly="true" id="city" name="city">
-                                        <option value="Mumbai">Mumbai</option>
-                                    </select>
-                                </p>
-                                <p class="dt-sc-one-half column"  required="required">
-                                    <select class="" tabindex="15" readonly="true" id="pref_method_of_contact" name="pref_method_of_contact">
-                                        <option value="0">Please select</option>
-                                        <option value="either" selected="selected">Either (Mobile/Email)</option>
-                                        <option value="mobile">Mobile</option>
-                                        <option value="email">Email</option>
-                                    </select>
-                                </p>
+
                                 <div class="dt-sc-margin20"></div>
 
                                 <div class=" "> 
-                                    <input tabindex="19" name="terms" required="true" class="h22" style="margin-right: 4px;" type="checkbox"> I agree to the <a href="terms.php">Terms of Service </a>
-                                    <div id="terms_validate" style="color:red;"></div>                         
+                                    <input tabindex="19" name="terms"   style="margin-right: 4px;" type="checkbox" id="check"> I agree to the <a href="terms.php">Terms of Service </a>
+
 
                                 </div>                
 
 
 
-                                <input class="button" value="Create an Account" type="submit" ng-disabled='newRegister.$invalid'>     
+                                <input class="button" value="Create an Account" type="submit" id="regsubmit">     
                             </form>   
                         </div>
                     </div>        
@@ -181,21 +170,21 @@
                             @foreach($addresses as $address)
                             <div class="column dt-sc-one-fourth ">
                                 <form action="{{ URL::route('paymentPage')}}" method="post">
-                                    <input type="hidden" name="addressId" value="{{ $address->id}}">
+                                    <input type="hidden" name="addressId" value="{{$address->id}}">
                                     <div class="dt-sc-pr-tb-col">
                                         <!-- **dt-sc-tb-header - Starts** -->
                                         <div class="dt-sc-tb-header">
                                             <div class="dt-sc-tb-title" style="height: 30px;">
                                                 <div class="editdeletebtn" style="float:right;margin-right: 10px;margin-top: 5px;">
                                                     <span>
-                                                        <a href="javascript:void(0);" id="editAddress_{{ $address->id}}" class="formedit editAddress" style="text-decoration:none;"><i class="fa fa-edit" style="margin-right:10px; font-size: 15px;"></i></a>
-                                                        <a href="javascript:void(0);" id="deleteAddress_{{ $address->id}}"  class="deleteAddress" style="text-decoration:none;"><i class="fa fa-trash-o" style="font-size: 16px;"></i></a>
+                                                        <a href="javascript:void(0);" id="editAddress_{{$address->id}}" class="formedit editAddress" style="text-decoration:none;"><i class="fa fa-edit" style="margin-right:10px; font-size: 15px;"></i></a>
+                                                        <a href="javascript:void(0);" id="deleteAddress_{{$address->id}}"  class="deleteAddress" style="text-decoration:none;"><i class="fa fa-trash-o" style="font-size: 16px;"></i></a>
                                                     </span></div> 
                                             </div>
                                             <!-- **dt-sc-tb-title - Starts** -->
                                             <div class="dt-sc-price">
 
-                                                <h2 style="border-bottom:0px;"> {{ $address->firstname}}  {{ $address->lastname}} </h2>
+                                                <h2 style="border-bottom:0px;"> {{$address->firstname}}  {{$address->lastname}} </h2>
                                             </div> <!-- **dt-sc-tb-title - Ends** -->
                                             <!-- **dt-sc-price - Starts** -->
                                             <!-- **dt-sc-price - Ends** -->
@@ -203,8 +192,8 @@
                                         <ul class="dt-sc-tb-content">
 
 
-                                            <li>{{ $address->address}}</li>
-                                            <li> {{ $address->city}} </li>
+                                            <li>{{$address->address}}</li>
+                                            <li> {{$address->city}} </li>
                                             <li>9769142142</li>
                                         </ul>
                                         <!-- **dt-sc-buy-now - Starts** -->
@@ -212,7 +201,7 @@
 
                                         </div>
                                         <div class="dt-sc-buy-now">
-                                            <input type="submit" class="dt-sc-button small continueAddress"  id="{{ $address->id}}" value="Continue"><span class="fa fa-arrow-right"></span> 
+                                            <input type="submit" class="dt-sc-button small continueAddress"  id="{{$address->id}}" value="Continue"><span class="fa fa-arrow-right"></span> 
                                         </div> <!-- **dt-sc-buy-now - Ends** -->
 
                                     </div> <!-- **dt-sc-pr-tb-col - Ends** -->
@@ -429,12 +418,11 @@
 
         <div class="clear"></div>
         <?php
-       
         $country = DB::table("countries")->get();
-       
+
         $state = DB::table("zones")->get();
         ?>
-       
+
         <p class="form-row form-row-wide address-field validate-required" id="">
             <textarea placeholder="Address" name="txtmessage" required=""></textarea></p>
 
@@ -474,6 +462,31 @@
 
             });
         });
+        
+         $("#regcountry").change(function () {
+            $("#regstate").empty();
+
+            var country_id = $("#regcountry").val();
+            //  alert(country_id);
+            $.ajax({
+                type: "POST",
+                url: "{{ URL::route('ajax-country-states') }}",
+                data: {country_id: country_id},
+                cache: false, success: function (data) {
+                    //alert(data);
+                    // var stateoption = jQuery.parseJSON(data);
+                    // alert(stateoption)
+                    $.each(data, function (key, value) {
+//alert(value);
+                        $("#regstate").append('<option value="' + value['id'] + '">' + value['name'] + '</option>');
+                    });
+
+                }
+
+
+            });
+        });
+        
         $("#addNewAddress").click(function () {
             $('#checkoutNewAddr').show();
         });
@@ -665,6 +678,134 @@
                 return false;
             }
         });
+
+        $("#regsubmit").click(function () {
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            var numbers = /^[\d\-\+\s]+$/;
+            var firstName = $("#reg_first_name").val();
+            var lastName = $("#reg_last_name").val();
+            var mobile = $("#regmobile").val();
+            var email = $("#regemail").val();
+            var password = $("#regpassword").val();
+            var cpassword = $("#regcpassword").val();
+            var country = $("#regcountry").val();
+            var state = $("#regstate").val();
+            var address = $("#regaddress").val();
+            var check = $('#check').is(':checked');
+            var flag = 0;
+            if (firstName == '' || firstName == null)
+            {
+
+                $('#reg_first_name').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#reg_first_name').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+
+            if (lastName == '' || lastName == null)
+            {
+
+                $('#reg_last_name').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#reg_last_name').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+
+            if (!numbers.test(mobile) || mobile == "")
+            {
+
+                $('#regmobile').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#regmobile').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+
+            if (!emailPattern.test(email) || email == "")
+            {
+
+                $('#regemail').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#regemail').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+
+            if (country == '' || country == null)
+            {
+
+                $('#regcountry').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#regcountry').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+
+            if (password == '' || password == null)
+            {
+
+                $('#regpassword').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#regpassword').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+
+            if (cpassword == '' || cpassword == null)
+            {
+
+                $('#regcpassword').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#regcpassword').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+
+
+            if (state == '' || state == null)
+            {
+
+                $('#regstate').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#regstate').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+
+            if (address == '' || address == null)
+            {
+
+                $('#regaddress').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+                flag++;
+            }
+            else
+            {
+                $('#regaddress').css({"border-color": "", "border-weight": "", "border-style": ""});
+            }
+            if (check == false)
+            {
+                flag++;
+            }
+
+            if (flag == 0)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        });
+
     });
     function message()
     {
@@ -672,6 +813,16 @@
         if (country_val == '' || country_val == '0')
         {
             $('#shipping_country').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
+            alert('Please Select Country First');
+
+        }
+    }
+     function regmessage()
+    {
+        var country_val = document.getElementById('regcountry').value;
+        if (country_val == '' || country_val == '0')
+        {
+            $('#regcountry').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
             alert('Please Select Country First');
 
         }

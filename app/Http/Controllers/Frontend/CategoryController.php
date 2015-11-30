@@ -1,7 +1,8 @@
-<?php namespace App\Http\Controllers\frontend;
+<?php
+
+namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
-
 use Route;
 use Input;
 use Session;
@@ -10,31 +11,32 @@ use App\Models\Product;
 use App\Models\User;
 
 class CategoryController extends Controller {
-    
- public function index() {
-       // $categories = Category::paginate(Config('constants.paginateNo'));
-       $prod = Product::find(18);
-       $relatedProd = $prod->relatedproducts()->with('catalogimgs')->take(1)->get()->toArray();
-       $upsellProd = $prod->upsellproducts()->with('catalogimgs')->take(3)->get()->toArray();
-       Session::get('loggedinUserId');
-        return view(Config('constants.frontendCategoryView') . '.category', compact('relatedProd','upsellProd'));
+
+    public function index() {
+        // $categories = Category::paginate(Config('constants.paginateNo'));
+        $prod = Product::find(18);
+
+        $relatedProd = $prod->relatedproducts()->with('catalogimgs')->take(1)->get()->toArray();
+        $upsellProd = $prod->upsellproducts()->with('catalogimgs')->take(3)->get()->toArray();
+        // Session::get('loggedinUserId');
+        return view(Config('constants.frontendCategoryView') . '.category', compact('relatedProd', 'upsellProd'));
     }
-    
-     public function getMainMenu() {
+
+    public function getMainMenu() {
         $categories = Category::find(1)->getDescendants(3)->where('is_nav', 1)->toHierarchy()->toArray();
         return response()->json($categories);
     }
-    
+
     public function getCategoryProducts($slug) {
-     
+
         $cats = Category::findBySlug($slug)->getDescendantsAndSelf(['id'])->toArray();
 
         $products = Product::where("is_individual", 1)
                 ->whereHas('categories', function($query) use ($cats) {
                     return $query->whereIn('cat_id', $cats);
-                })
+                })->distinct('products.id')
                 ->paginate(Config('constants.frontendPaginateNo'));
-
+     
         foreach ($products as $prd) {
             $attrs = [];
             foreach ($prd->categories()->where("url_key", "!=", "popular")->get() as $cat) {
@@ -53,10 +55,12 @@ class CategoryController extends Controller {
         }
 
         $products = $products->toArray();
+       
         $products['maincat'] = Category::findBySlug($slug)->category;
-
+       // dd($products);
         return response()->json($products);
     }
+
     public function getChildCategory($slug, $productCats) {
         $cats = Category::findBySlug($slug)->getDescendants(['id'])->toArray();
         $id = array_intersect($cats, $productCats);
@@ -139,4 +143,5 @@ class CategoryController extends Controller {
         }
         return response()->json($products);
     }
+
 }

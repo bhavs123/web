@@ -239,10 +239,11 @@
         $(".addTCartId").click(function () {
 
             var prodQty = $('#quantity').val();
-            //   alert(prodQty);
+               alert(prodQty);
             var flag = 0;
-            if (prodQty == '0' || prodQty <= '0' || prodQty >= '11' )
+            if (prodQty == '0' || prodQty <= '0' )
             {
+                alert('error');
                 $('#quantity').css({"border-color": "#FF0000", "border-weight": "1px", "border-style": "solid"});
                 flag++;
             }

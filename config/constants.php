@@ -2,6 +2,7 @@
 
 return[
     'paginateNo' => 10,
+    'frontendPaginateNo' => 2,
     'adminView' => 'admin.pages',
     'adminCategoryView' => 'admin.pages.catalog.category',
     'adminSystemUsersView' => 'admin.pages.acl.system_users',

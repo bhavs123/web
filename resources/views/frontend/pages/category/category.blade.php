@@ -57,11 +57,11 @@
                             <!-- **product-details - Starts** --> 
                             <div class="product-details"> 
                                 <h5> <a href="javascript:void();"> {{ $relProd['product']}} </a> </h5>
-                                    <span class="amount"> {{$relProd['price']}}</span> 
+                                <span class="amount"> {{$relProd['price']}}</span> 
                             </div> <!-- **product-details - Ends** --> 
                         </div> <!-- **product-wrapper - Ends** -->
                     <?php } ?>
-  
+
                 </div> <!-- **products - Ends** -->
             </aside>
 
@@ -90,7 +90,7 @@
                             </div> <!-- **product-container - Ends** --> 
                             <!-- **product-details - Starts** --> 
                             <div class="product-details"> 
-                                <h5> <a href="shop-detail.html">[[ product.product ]] </a> </h5>
+                                <h5> <a href="javascript:void();">[[ product.product ]] </a> </h5>
                                 <span class="amount"> [[ product.price ]]</span> 
                             </div> <!-- **product-details - Ends** --> 
                         </div> <!-- **product-wrapper - Ends** -->  
@@ -104,15 +104,11 @@
             </ul> <!-- **product - Ends** -->
             <div class="dt-sc-margin10"></div>
             <!-- **pagination - Starts** -->  
+              
             <div class="pagination" >
-                <div class="prev-post"> <a href="#"> <span class="fa fa-caret-left"></span> PREV </a> </div>
-                <ul>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                </ul>
-                <div class="next-post"> <a href="#">NEXT  <span class="fa fa-caret-right"></span> </a> </div>
+
+                <button class="button load-more-btn ng-scope"  ng-click="load($event, next_page_url)"> <i></i> Load More</button>
+              
             </div> <!-- **pagination - Ends** -->
         </section> <!-- **primary - Ends** --> 
         <div class="dt-sc-margin80"></div>

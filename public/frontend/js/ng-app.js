@@ -62,6 +62,7 @@ app.controller('mainNavigation', function ($http, $rootScope, $scope) {
 
 app.controller('categoryController', function ($http, $rootScope, $location, $scope) {
     $scope.filtered = {};
+    $scope.products = {};
 
     var slug = $location.absUrl();
     slug = slug.split("/")[4];
@@ -69,7 +70,13 @@ app.controller('categoryController', function ($http, $rootScope, $location, $sc
 
 
     $http.get("/get-category-products/" + slug).success(function (response) {
+        // $scope.products1 = response; 
         $scope.products = response.data;
+        $scope.pdts = response.data;
+        $scope.next_page_url = response.next_page_url;
+
+        $scope.$digest;
+
         $scope.catTitle = response.maincat;
     });
 
@@ -116,7 +123,37 @@ app.controller('categoryController', function ($http, $rootScope, $location, $sc
         return Object.keys(obj).length;
     };
 
+    $scope.load = function (event, url) {
+       
+        //angular.element(event.target).children("i").addClass("fa fa-spinner fa-pulse");
+        $http.get(url, {
+            params: {
+               // 'filters': $scope.filtered,
+                'slug': $scope.url_key,
+                'sort': jQuery("select.orderby").val(),
+            }
+        }).success(function (response, status, headers, config) {
+           // $scope.products = response.data;
+           //  console.log(response.data);
+            if (response.data.length > 0) {
+                jQuery.each(response.data, function (k, v) {
+                    $scope.products.push(v);
+                });
 
+
+                $scope.next_page_url = response.next_page_url;
+               // angular.element(event.target).children("i").removeClass("fa fa-spinner fa-pulse");
+            } else {
+                angular.element(event.target).removeAttr("ng-click");
+                angular.element(event.target).text("No More Products");
+            }
+
+            $scope.$digest;
+
+
+
+        });
+    };
 
 
 
@@ -137,7 +174,7 @@ app.controller('productController', function ($http, $rootScope, $location, $sco
             success: function (data) {
                 // alert(data);
                 data = data.split("||||||");
-              // alert(data);
+                // alert(data);
                 $(".custom-top-right .cartQty").html("(" + data[1] + ")");
                 $(".cart-container .open-panel").html(data[0]);
 
@@ -161,11 +198,11 @@ function checkUniqueValue(id, property, value) {
         data: data,
         cache: false,
         success: function (response) {
-           // alert(response);
-            if(response==1)
+            // alert(response);
+            if (response == 1)
             {
-                $('#uniqueEmail').text('Email Id already Exist.'); 
-            }else
+                $('#uniqueEmail').text('Email Id already Exist.');
+            } else
             {
                 $('#uniqueEmail').text('');
             }
@@ -175,6 +212,7 @@ function checkUniqueValue(id, property, value) {
     });
 
 }
+
 
 
 
