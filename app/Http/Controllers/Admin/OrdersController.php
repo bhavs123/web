@@ -86,11 +86,17 @@ class OrdersController extends Controller {
     }
 
     public function save() {
-echo Input::get('id');
-       echo $orderId = Order::find(Input::get('id'));
-die;
-
+        $orderId = Order::find(Input::get('id'));
         $orderStatus = Input::get('order_status');
+        $cur_Order_Status = $orderId->order_status;
+        $cur_Order_Status . "---" . $orderStatus;
+
+        if ($cur_Order_Status == $orderStatus) {
+            $orderEdit = Order::find(Input::get('id'));
+
+            $orderEdit->fill(Input::all())->save();
+            return redirect()->back();
+        }
     }
 
 }

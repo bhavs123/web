@@ -26,8 +26,15 @@
                 </thead>
 
                 <?php
+                
+//                 echo "<pre>";
+//                    print_r($orderDetails);
+//                    echo "</pre>";
                 foreach ($orderDetails as $orderDetailsVal) {
                     $orderCartInfo = json_decode($orderDetailsVal->cart, true);
+//                    echo "<pre>";
+//                    print_r($orderCartInfo);
+//                    echo "</pre>";
                     ?>
                     <tbody>
                         <?php
@@ -35,6 +42,7 @@
                             ?>
                             <tr>
                                 <td>{{$orderProd['name']}}</td>
+                                
                                 <td>{{$orderProd['qty']}}</td>
                                 <td>{{$orderProd['price']}}</td>
                                 <td>{{$orderProd['price']*$orderProd['qty']}}</td>
@@ -83,7 +91,7 @@
         <div>
             <h4 class="m-n font-thin h3">Order Details</h4>
         </div>
-        {!! Form::model($orders, ['method' => 'post', 'files'=> true, 'url' => $action , 'class' => 'form-horizontal' ]) !!}
+        {!! Form::model($orders, ['method' => 'post',  'url' => $action , 'class' => 'form-horizontal','id'=>'orderEditForm' ]) !!}
 
 
 
@@ -168,13 +176,13 @@
         <div class="form-group col-md-4">
             <div class="col-md-12">
                 {!! Form::label('Country', 'Country',['class'=>'control-label']) !!}
-                {!! Form::select('country',$country, isset($orders->country_id)?$orders->country_id:null,["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+                {!! Form::select('country',$country, isset($orders->country_id)?$orders->country_id:null,["id"=>'country',"class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
         <div class="form-group col-md-4">
             <div class="col-md-12">
                 {!! Form::label('State', 'State',['class'=>'control-label']) !!}
-                {!! Form::select('state',$state,isset($orders->state_id)?$orders->state_id:null, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+                {!! Form::select('state',$state,isset($orders->state_id)?$orders->state_id:null, ["id"=>'state',"class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
         <div class="form-group col-md-4">
@@ -214,7 +222,26 @@
 <script>
     $(document).ready(function () {
 
+        $("#country").change(function () {
+            $("#state").empty();
 
+            var country_id = $("#country").val();
+
+            $.ajax({
+                type: "POST",
+                url: "{{ URL::route('ajax-country-states') }}",
+                data: {country_id: country_id},
+                cache: false,
+                success: function (data) {
+
+                    $.each(data, function (key, value) {
+
+                        $("#state").append('<option value="' + value['id'] + '">' + value['name'] + '</option>');
+                    });
+
+                }
+            });
+        });
     });
 </script>
 @stop
