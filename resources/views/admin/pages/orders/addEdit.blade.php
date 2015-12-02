@@ -7,10 +7,82 @@
 </div>
 
 <div class="panel panel-default">
-    <div>
-        <h4 class="m-n font-thin h3">Order Details</h4>
-    </div>
+
     <div class="panel-body">
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div>
+            <h4 class="m-n font-thin h3">Order Summery</h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+
+                    <tr>
+                        <th class="product-thumbnail">Product Details</th>
+                        <th class="product-quantity">Quantity</th>
+                        <th class="product-price">Unit Price</th>
+                        <th class="product-subtotal">Total Price</th>
+                    </tr>
+                </thead>
+
+                <?php
+                foreach ($orderDetails as $orderDetailsVal) {
+                    $orderCartInfo = json_decode($orderDetailsVal->cart, true);
+                    ?>
+                    <tbody>
+                        <?php
+                        foreach ($orderCartInfo as $orderProd) {
+                            ?>
+                            <tr>
+                                <td>{{$orderProd['name']}}</td>
+                                <td>{{$orderProd['qty']}}</td>
+                                <td>{{$orderProd['price']}}</td>
+                                <td>{{$orderProd['price']*$orderProd['qty']}}</td>
+
+
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Sub Total</td>
+                            <td>{{$orderDetailsVal->totalOrderAmt}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Shipping Charges</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Discount Coupon</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Shippment Total</td>
+                            <td>{{$orderDetailsVal->totalOrderAmt}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                <?php } ?>
+
+            </table></div>
+
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div>
+            <h4 class="m-n font-thin h3">Order Details</h4>
+        </div>
         {!! Form::model($orders, ['method' => 'post', 'files'=> true, 'url' => $action , 'class' => 'form-horizontal' ]) !!}
 
 
@@ -18,7 +90,7 @@
         <div class="form-group col-md-4">
             <div class="col-md-12">
                 {!! Form::label('Payment Method', 'Payment Method',['class'=>'control-label']) !!}
-                {!! Form::hidden('id',null) !!}
+                {!! Form::hidden('id',$orders->id) !!}
                 {!! Form::select('payment_method',$paymentMethod, isset($orders->payment_method)?$orders->payment_method:null,["class"=>'form-control' ,"placeholder"=>'Enter Payment Method', "required"]) !!}
             </div>
         </div>
@@ -78,53 +150,60 @@
         <div class="form-group col-md-4">
             <div class="col-md-12">
                 {!! Form::label('First Name', 'First Name',['class'=>'control-label']) !!}
-                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+                {!! Form::text('first_name',$orders->first_name, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
         <div class="form-group col-md-4">
             <div class="col-md-12">
                 {!! Form::label('Last Name', 'Last Name',['class'=>'control-label']) !!}
-                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+                {!! Form::text('last_name',$orders->last_name, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
         <div class="form-group col-md-4">
             <div class="col-md-12">
                 {!! Form::label('Phone', 'Phone',['class'=>'control-label']) !!}
-                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+                {!! Form::text('mobile',$orders->mobile, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
         <div class="form-group col-md-4">
             <div class="col-md-12">
                 {!! Form::label('Country', 'Country',['class'=>'control-label']) !!}
-                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+                {!! Form::select('country',$country, isset($orders->country_id)?$orders->country_id:null,["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
         <div class="form-group col-md-4">
             <div class="col-md-12">
                 {!! Form::label('State', 'State',['class'=>'control-label']) !!}
-                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+                {!! Form::select('state',$state,isset($orders->state_id)?$orders->state_id:null, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
         <div class="form-group col-md-4">
             <div class="col-md-12">
-                {!! Form::label('Address', 'Address',['class'=>'control-label']) !!}
-                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+                {!! Form::label('City', 'City',['class'=>'control-label']) !!}
+                {!! Form::text('city',$orders->city, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
-
-    </div>
-
-    <div class="line line-dashed b-b line-lg pull-in"></div>
-
-    <div class="form-group">
-        <div class="col-sm-4 col-sm-offset-2">
-            {!! Form::submit('Submit',["class" => "btn btn-primary"]) !!}
-            {!! Form::close() !!}     
-
-
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Location', 'Location',['class'=>'control-label']) !!}
+                {!! Form::text('location',$orders->location, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+            </div>
         </div>
+        <div class="form-group col-md-10">
+            <div class="col-md-12 fright ">
+                {!! Form::submit('Submit',["class" => "btn btn-primary"]) !!}
+                {!! Form::close() !!}     
+
+
+            </div>
+        </div>
+        </form>
+ <div class="line line-dashed b-b line-lg pull-in"></div>
     </div>
-</form>
+
+   
+
+
 </div>
 </div>
 

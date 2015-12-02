@@ -188,7 +188,7 @@
                                                 <span class="cart-item-details">&nbsp;</span>                   
                                             </td>
                                             <td class="">
-                                                <div class="product-quntity">Discount Coupen</div>
+                                                <div class="product-quntity">Discount Coupon</div>
                                             </td>
                                             <td class="product-subtotal">
                                                 <span class="cart-item-details"><span class="amount">-</span></span>                   

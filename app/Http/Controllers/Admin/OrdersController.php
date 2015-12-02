@@ -11,6 +11,7 @@ use App\Models\PaymentStatus;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Country;
+use App\Models\State;
 use App\Models\ProductType;
 use App\Models\AttributeSet;
 use App\Models\CatalogImage;
@@ -32,10 +33,19 @@ class OrdersController extends Controller {
     public function edit() {
 
         $orders = Order::find(Input::get('id'));
+        // dd($orders);
+        //dd($orders->id);
+        $orderDetails = DB::table('orders')
+                        ->Join('has_products', 'orders.id', '=', 'has_products.order_id')
+                        ->Join('products', 'has_products.prod_id', '=', 'products.id')
+                        ->select('orders.id', 'orders.cart', 'orders.created_at', DB::raw('SUM(has_products.price) as totalOrderAmt'), DB::raw("group_concat(products.product) as productName"), DB::raw("group_concat(products.id) as productId"), DB::raw("group_concat(has_products.qty) as productQty"), DB::raw("group_concat(has_products.uprice) as productUprice"), DB::raw("group_concat(has_products.price) as productPrice"))
+                        ->groupBy('orders.id')
+                        ->where('orders.id', "=", $orders->id)->get();
 
+        // dd($orderDetails);
         $action = route("admin.orders.save");
-        
-         $order_status = OrderStatus::get()->toArray();
+
+        $order_status = OrderStatus::get()->toArray();
         $orderStatus = ["" => "Please Select Order Status"];
         foreach ($order_status as $status) {
             $orderStatus[$status['id']] = $status['order_status'];
@@ -52,11 +62,35 @@ class OrdersController extends Controller {
         $payment_method = PaymentMethod::get()->toArray();
 
 
-        $paymentMethod = ["" => "Please Select Payment Status"];
+        $paymentMethod = ["" => "Please Select Payment Method"];
         foreach ($payment_method as $p_method) {
             $paymentMethod[$p_method['id']] = $p_method['name'];
         }
-        return view(Config('constants.adminOrderView') . '.addEdit', compact('orders', 'action','orderStatus','paymentStatus','paymentMethod'));
+
+        $countryInfo = Country::get()->toArray();
+
+
+        $country = ["" => "Please Select country"];
+        foreach ($countryInfo as $country_val) {
+            $country[$country_val['id']] = $country_val['name'];
+        }
+
+        $stateInfo = State::get()->toArray();
+
+
+        $state = ["" => "Please Select state"];
+        foreach ($stateInfo as $state_val) {
+            $state[$state_val['id']] = $state_val['name'];
+        }
+        return view(Config('constants.adminOrderView') . '.addEdit', compact('orders', 'orderDetails', 'country', 'state', 'action', 'orderStatus', 'paymentStatus', 'paymentMethod'));
+    }
+
+    public function save() {
+echo Input::get('id');
+       echo $orderId = Order::find(Input::get('id'));
+die;
+
+        $orderStatus = Input::get('order_status');
     }
 
 }
