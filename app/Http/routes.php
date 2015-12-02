@@ -100,9 +100,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
         
          Route::group(['prefix' => 'orders'], function() {
                 get('/', ['as' => 'admin.orders.view', 'uses' => 'OrdersController@index']);
-               // get('/add', ['as' => 'admin.attrs.add', 'uses' => 'AttributesController@add']);
-               // post('/save', ['as' => 'admin.attrs.save', 'uses' => 'AttributesController@save']);
-               // get('/edit', ['as' => 'admin.attrs.edit', 'uses' => 'AttributesController@edit']);
+               get('/edit', ['as' => 'admin.orders.edit', 'uses' => 'OrdersController@edit']);
+                get('/add', ['as' => 'admin.orders.add', 'uses' => 'OrdersController@add']);
+               post('/save', ['as' => 'admin.orders.save', 'uses' => 'OrdersController@save']);
+               
             });
     });
 });

@@ -18,7 +18,7 @@ class Order extends Model {
     }
 
     public function hasproduct() {
-        return $this->belongsToMany('Order', 'has_products', 'order_id', 'id');
+        return $this->belongsToMany('App\Models\Order', 'has_products', 'order_id', 'id');
     }
 
     public function users() {
@@ -32,38 +32,38 @@ class Order extends Model {
     
     public function address() {
 
-        return $this->belongsTo('Address', 'user_id');
+        return $this->belongsTo('App\Models\Address', 'user_id');
     }
 
     public function paymentmethod() {
-        return $this->belongsTo('PaymentMethod', 'payment_method');
+        return $this->belongsTo('App\Models\PaymentMethod', 'payment_method');
     }
 
     public function paymentstatus() {
-        return $this->belongsTo('PaymentStatus', 'payment_status');
+        return $this->belongsTo('App\Models\PaymentStatus', 'payment_status');
     }
 
     public function orderstatus() {
-        return $this->belongsTo('OrderStatus', 'order_status');
+        return $this->belongsTo('App\Models\OrderStatus', 'order_status');
     }
 
     public function coupon() {
 
-        return $this->belongsTo('Coupon', 'coupon_used');
+        return $this->belongsTo('App\Models\Coupon', 'coupon_used');
     }
 
     public function voucher() {
 
-        return $this->belongsTo('Coupon', 'voucher_used');
+        return $this->belongsTo('App\Models\Coupon', 'voucher_used');
     }
 
       public function availableslot() {
 
-        return $this->belongsTo('AvailableSlot', 'avl_slot_id');
+        return $this->belongsTo('App\Models\AvailableSlot', 'avl_slot_id');
     }
     
     public function delboy(){
-         return $this->belongsTo('User', 'del_boy');
+         return $this->belongsTo('App\Models\User', 'del_boy');
     }
 
     

@@ -3,142 +3,129 @@
 
 
 <div class="bg-light lter b-b wrapper-md">
-    <h1 class="m-n font-thin h3">Add New Attribute</h1>
+    <h1 class="m-n font-thin h3">Edit Order</h1>
 </div>
 
 <div class="panel panel-default">
-
+    <div>
+        <h4 class="m-n font-thin h3">Order Details</h4>
+    </div>
     <div class="panel-body">
-        {!! Form::model($attrs, ['method' => 'post', 'files'=> true, 'url' => $action , 'class' => 'form-horizontal' ]) !!}
-        
-        {!! Form::hidden('id',null) !!}
-     
-        <div class="form-group">
-            {!! Form::label('Attribute Sets', 'Attribute Sets',['class'=>'col-sm-2 control-label']) !!}
-            <?php $attr_Sets = $attrs->attributesets->toArray(); ?>
-            <div class="col-sm-10">
-                @foreach($attrSets as $attrS)
-                <div class="checkbox">
-                    <label class="i-checks i-checks-sm">
-                        {!! Form::checkbox('attr_set[]',$attrS['id'] , App\Library\Helper::searchForKey("id",$attrS['id'],$attr_Sets)?$attrS['id']: "" ) !!}
-                        <i></i>
-                        {!! $attrS['attr_set'] !!}
-                    </label>
-                </div>
-                @endforeach
+        {!! Form::model($orders, ['method' => 'post', 'files'=> true, 'url' => $action , 'class' => 'form-horizontal' ]) !!}
+
+
+
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Payment Method', 'Payment Method',['class'=>'control-label']) !!}
+                {!! Form::hidden('id',null) !!}
+                {!! Form::select('payment_method',$paymentMethod, isset($orders->payment_method)?$orders->payment_method:null,["class"=>'form-control' ,"placeholder"=>'Enter Payment Method', "required"]) !!}
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Payment Status', 'Payment Status',['class'=>'control-label']) !!}
+                {!! Form::select('payment_status',$paymentStatus, isset($orders->payment_status)?$orders->payment_status:null, ["class"=>'form-control' ,"placeholder"=>'Enter Payment Status', "required"]) !!}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Order Status', 'Order Status',['class'=>'control-label']) !!}
+                {!! Form::select('order_status',$orderStatus,isset($orders->order_status)?$orders->order_status:null, ["class"=>'form-control' ,"placeholder"=>'Enter Order Status', "required"]) !!}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Current Payable Amount', 'Current Payable Amount',['class'=>'control-label']) !!}
+                {!! Form::text('payable_amount',$orders->pay_amt, ["class"=>'form-control' ,"placeholder"=>'Enter Payable Amount', "required"]) !!}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('COD Charges', 'COD Charges',['class'=>'control-label']) !!}
+                {!! Form::text('cod_charges',$orders->cod_charges, ["class"=>'form-control' ,"placeholder"=>'Enter COD Charges', "required"]) !!}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Shipping Amount', 'Shipping Amount',['class'=>'control-label']) !!}
+                {!! Form::text('shipping_amount',$orders->shipping_amt, ["class"=>'form-control' ,"placeholder"=>'Enter Shipping Amount', "required"]) !!}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Coupon Amount Used', 'Coupon Amount Used',['class'=>'control-label']) !!}
+                {!! Form::text('coupon_amount',$orders->coupon_amt_used, ["class"=>'form-control' ,"placeholder"=>'Coupon Amount Used', "required"]) !!}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Voucher Amount Used', 'Voucher Amount Used',['class'=>'control-label']) !!}
+                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="col-md-12"> 
+                {!! Form::label('Comments', 'Comments',['class'=>'control-label']) !!}
+                {!! Form::text('comments',$orders->order_comment, ["class"=>'form-control' ,"placeholder"=>'Enter Comments', "required"]) !!}
             </div>
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
-        <div class="form-group">
-            {!! Form::label('Attribute type', 'Attribute Type',['class'=>'col-sm-2 control-label']) !!}
-            <div class="col-sm-10">
-                @foreach($attr_types as $attr_type)
-                <div class="radio">
-                    <label class="i-checks">
-                        <input type="radio"  name="attr_type" value=" {!! $attr_type->id !!}"  {!! isset($attrs->attr_type)?"checked":"" !!} /> 
-                               <i></i>
-                        {!! $attr_type->attr_type !!}
-                    </label>
-                </div>
-                @endforeach
+        <div>
+            <h4 class="m-n font-thin h3">Customer Details</h4>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('First Name', 'First Name',['class'=>'control-label']) !!}
+                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
-        <div class="form-group">
-            {!! Form::label('is_filterable', 'Is Filterable',['class'=>'col-sm-2 control-label']) !!}
-            <div class="col-sm-10">
-                {!! Form::select('is_filterable',["0" => "No", "1" => "Yes"],null,["class"=>'form-control'],"required") !!}
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Last Name', 'Last Name',['class'=>'control-label']) !!}
+                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
-
-        <div class="form-group">
-            {!! Form::label('Attribute Name', 'Attribute Name',['class'=>'col-sm-2 control-label']) !!}
-
-            <div class="col-sm-10">
-                {!! Form::text('attr',null, ["class"=>'form-control' ,"placeholder"=>'Enter Attribute Name', "required"]) !!}
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Phone', 'Phone',['class'=>'control-label']) !!}
+                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
-        <div class="form-group">
-            {!! Form::label('Attribute Options', 'Attribute Options',['class'=>'col-sm-2 control-label']) !!}
-
-            <div class="col-sm-9 col-md-9  attrOptn">
-
-                @if($attrs->attributeoptions()->count() > 0 )
-                @foreach($attrs->attributeoptions as $opt)
-
-                <div class="row form-group">
-                    <div class="col-sm-3">
-                        {!! Form::text('option_name[]',$opt->option_name, ["class"=>'form-control' ,"placeholder"=>'Enter Option Name', "required"]) !!}
-                    </div>
-                    <div class="col-sm-3">
-                        {!! Form::text('option_value[]',$opt->option_value, ["class"=>'form-control' ,"placeholder"=>'Enter Option Value', "required"]) !!}
-                    </div>
-                    <div class="col-sm-3">
-                        {!! Form::select('is_active[]',["0" => "No", "1" => "Yes"],$opt->is_active,["class"=>'form-control'],"required") !!}
-                    </div>
-                    <div class="col-sm-2">
-                        {!! Form::text('sort_order[]',$opt->sort_order, ["class"=>'form-control' ,"placeholder"=>'Enter Sort Order', "required"]) !!}
-                    </div>
-
-                    {!! Form::hidden('idd[]',$opt->id) !!}
-
-                </div>
-                @endforeach
-                @else
-                <div class="row form-group">
-                    <div class="col-sm-3">
-                        {!! Form::text('option_name[]',null, ["class"=>'form-control' ,"placeholder"=>'Enter Option Name', "required"]) !!}
-                    </div>
-                    <div class="col-sm-3">
-                        {!! Form::text('option_value[]',null, ["class"=>'form-control' ,"placeholder"=>'Enter Option Value', "required"]) !!}
-                    </div>
-                    <div class="col-sm-3">
-                        {!! Form::select('is_active[]',["0" => "No", "1" => "Yes"],null,["class"=>'form-control'],"required") !!}
-                    </div>
-                    <div class="col-sm-2">
-                        {!! Form::text('sort_order[]',null, ["class"=>'form-control' ,"placeholder"=>'Enter Sort Order', "required"]) !!}
-                    </div>
-
-                </div>
-                @endif
-            </div>
-
-            <div class="col-sm-1">
-                {!! Form::hidden('idd[]',null) !!}
-                <a href="javascript:void();" class="label label-success active addMore" >Add More</a> 
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Country', 'Country',['class'=>'control-label']) !!}
+                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
-        <div class="form-group">
-            <div class="col-sm-4 col-sm-offset-2">
-                {!! Form::submit('Submit',["class" => "btn btn-primary"]) !!}
-                {!! Form::close() !!}
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('State', 'State',['class'=>'control-label']) !!}
+                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
-        </form>
+        <div class="form-group col-md-4">
+            <div class="col-md-12">
+                {!! Form::label('Address', 'Address',['class'=>'control-label']) !!}
+                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+            </div>
+        </div>
+
     </div>
+
+    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+            {!! Form::submit('Submit',["class" => "btn btn-primary"]) !!}
+            {!! Form::close() !!}     
+
+
+        </div>
+    </div>
+</form>
 </div>
-<div id="toClone" style="display: none;">
-    <div class="row form-group">
-        <div class="col-sm-3">
-            {!! Form::text('option_name[]',null, ["class"=>'form-control' ,"placeholder"=>'Enter Option Name', "required"]) !!}
-        </div>
-        <div class="col-sm-3">
-            {!! Form::text('option_value[]',null, ["class"=>'form-control' ,"placeholder"=>'Enter Option Value', "required"]) !!}
-        </div>
-        <div class="col-sm-3">
-            {!! Form::select('is_active[]',["0" => "No", "1" => "Yes"],null,["class"=>'form-control'],"required") !!}
-        </div>
-        <div class="col-sm-2">
-            {!! Form::text('sort_order[]',null, ["class"=>'form-control' ,"placeholder"=>'Enter Sort Order', "required"]) !!}
-        </div>
-        <div class="col-sm-1">
-            {!! Form::hidden('idd[]',null) !!}
-            <a href="javascript:void();" class="label label-danger active deleteOpt" >Delete</a> 
-        </div>
-    </div>
 </div>
 
 @stop 
@@ -146,16 +133,9 @@
 @section('myscripts')
 
 <script>
-    $(document).ready(function() {
-
-        $(".addMore").click(function() {
-            $(".attrOptn").append($("#toClone").html())
-        });
+    $(document).ready(function () {
 
 
-        $("body").on("click", ".deleteOpt", function() {
-            $(this).parent().parent().remove();
-        });
     });
 </script>
 @stop

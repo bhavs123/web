@@ -8,7 +8,17 @@
 <div class="panel panel-default">
     <div class="row wrapper">
         <div class="col-sm-3 pull-right">           
-           
+<!--           <form method="get" action=" " id="searchForm">
+                <input type="hidden" name="attrCatalog">
+                <div class="form-group col-md-4">
+                    <input type="text" value=" " name="attr_name" aria-controls="editable-sample" class="form-control medium" placeholder="Attribute Name">
+                </div>
+                <div class="form-group col-md-3">
+                    <input type="submit" name="search" class="btn sbtn btn-block" value="Search">
+
+                </div>
+
+            </form>-->
         </div>
     </div>
 </div>
@@ -36,7 +46,7 @@
                 <td>{{$orders->order_amt}}</td>
                 <td>{{$orders->created_at}}</td>
                 <td>
-                    <a href="" class="label label-success active" ui-toggle-class="">Edit</a> <a href="" class="label label-danger active" ui-toggle-class="">Delete</a>
+                    <a href="{{route('admin.orders.edit',['id'=>$orders->id])}}" class="label label-success active" ui-toggle-class="">Edit</a> <a href="javascript:void(0);" class="label label-danger active" ui-toggle-class="">Delete</a>
                 </td>
 
             </tr>
