@@ -90,13 +90,44 @@ class OrdersController extends Controller {
         $orderStatus = Input::get('order_status');
         $cur_Order_Status = $orderId->order_status;
         $cur_Order_Status . "---" . $orderStatus;
-
+        //  dd(Input::all());
         if ($cur_Order_Status == $orderStatus) {
             $orderEdit = Order::find(Input::get('id'));
+            $orderEdit->first_name = Input::get('first_name');
+            $orderEdit->last_name = Input::get('last_name');
+            // $orderEdit->email = Input::get('email');
+            $orderEdit->country_id = Input::get('country');
+            $orderEdit->state_id = Input::get('state');
+            $orderEdit->city = Input::get('city');
+            $orderEdit->location = Input::get('location');
+            $orderEdit->mobile = Input::get('mobile');
+            $orderEdit->order_comment = Input::get('comments');
+            $orderEdit->payment_method = Input::get('payment_method');
+            $orderEdit->payment_status = Input::get('payment_status');
+            $orderEdit->order_status = Input::get('order_status');
+            $orderEdit->pay_amt = Input::get('payable_amount');
+            $orderEdit->cod_charges = Input::get('cod_charges');
 
-            $orderEdit->fill(Input::all())->save();
+            $orderEdit->shipping_amt = Input::get('shipping_amount');
+            $orderEdit->coupon_amt_used = Input::get('coupon_amount');
+            $orderEdit->update();
+
             return redirect()->back();
         }
+    }
+
+    public function invoice() {
+
+        $orderIds = explode(",", Input::get('OrderIds'));
+      //  dd($orderIds);
+        $invoice = "";
+        foreach ($orderIds as $id) {
+            $order = Order::find($id);
+            $address = $order->with('users')->with('address')->first();
+            
+            $invoice .= view(Config('constants.adminOrderView') . '.invoice', compact('order', 'address'));
+        }
+        return $invoice;
     }
 
 }

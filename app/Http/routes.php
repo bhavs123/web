@@ -68,7 +68,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
             post('/upsell-attach', array('as' => 'admin.products.upsellAttach', 'uses' => 'ProductsController@upsellAttach'));
             post('/upsell-detach', array('as' => 'admin.products.upsellDetach', 'uses' => 'ProductsController@upsellDetach'));
         });
-         
     });
 
 
@@ -97,14 +96,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
             get('/logistic-info', ['as' => 'admin.operations.logisticinfo.view', 'uses' => 'OperationsController@logistic_info_view']);
             get('/warehouse-products', ['as' => 'admin.operations.warehouseproducts.view', 'uses' => 'OperationsController@warehouse_products_view']);
         });
-        
-         Route::group(['prefix' => 'orders'], function() {
-                get('/', ['as' => 'admin.orders.view', 'uses' => 'OrdersController@index']);
-               get('/edit', ['as' => 'admin.orders.edit', 'uses' => 'OrdersController@edit']);
-                get('/add', ['as' => 'admin.orders.add', 'uses' => 'OrdersController@add']);
-               post('/save', ['as' => 'admin.orders.save', 'uses' => 'OrdersController@save']);
-               
-            });
+
+        Route::group(['prefix' => 'orders'], function() {
+            get('/', ['as' => 'admin.orders.view', 'uses' => 'OrdersController@index']);
+            get('/edit', ['as' => 'admin.orders.edit', 'uses' => 'OrdersController@edit']);
+            get('/add', ['as' => 'admin.orders.add', 'uses' => 'OrdersController@add']);
+            post('/save', ['as' => 'admin.orders.save', 'uses' => 'OrdersController@save']);
+            post('/print-invoice', ['as' => 'orderInvoice', 'uses' => 'OrdersController@invoice']);
+        });
     });
 });
 
@@ -148,13 +147,12 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::any("/ajax-get-attr-price", ['as' => 'ajax-get-attr-price', 'uses' => 'ProductController@ajaxGetAttrPrice']);
     get('/my-profile', ['as' => 'myProfile', 'uses' => 'UsersController@myProfile']);
     get('/order-details', ['as' => 'orderDetails', 'uses' => 'UsersController@orderDetails']);
-    post('/save-profile', ['as'=> 'saveProfile','uses'=>'UsersController@saveProfile']);
-    get('/update-password', ['as'=> 'updatePassword','uses'=>'UsersController@updatePassword']);
-    post('/save-update-password', ['as'=> 'saveUpdatePassword','uses'=>'UsersController@saveUpdatePassword']);
-    Route::any('/cancel-order', ['as'=> 'cancel-order','uses'=>'UsersController@cancelOrder']); 
-    Route::any('/ajax-get-address', ['as'=> 'ajax-get-address','uses'=>'CheckoutController@ajaxGetAddress']); 
-    
-    
+    post('/save-profile', ['as' => 'saveProfile', 'uses' => 'UsersController@saveProfile']);
+    get('/update-password', ['as' => 'updatePassword', 'uses' => 'UsersController@updatePassword']);
+    post('/save-update-password', ['as' => 'saveUpdatePassword', 'uses' => 'UsersController@saveUpdatePassword']);
+    Route::any('/cancel-order', ['as' => 'cancel-order', 'uses' => 'UsersController@cancelOrder']);
+    Route::any('/ajax-get-address', ['as' => 'ajax-get-address', 'uses' => 'CheckoutController@ajaxGetAddress']);
+
+
     get('/{slug}', array('as' => 'prod', 'uses' => 'ProductController@index'));
-    
 });

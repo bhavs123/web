@@ -29,6 +29,10 @@ class Order extends Model {
 
         return $this->belongsTo('App\Models\Country', 'country_id');
     }
+     public function state() {
+
+        return $this->belongsTo('App\Models\State', 'state_id');
+    }
     
     public function address() {
 

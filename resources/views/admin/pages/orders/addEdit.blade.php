@@ -62,7 +62,7 @@
                             <td></td>
                             <td></td>
                             <td>Shipping Charges</td>
-                            <td>-</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -142,7 +142,7 @@
         <div class="form-group col-md-4">
             <div class="col-md-12">
                 {!! Form::label('Voucher Amount Used', 'Voucher Amount Used',['class'=>'control-label']) !!}
-                {!! Form::text('shipping_amount',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
+                {!! Form::text('voucher_amt_used',$orders->voucher_amt_used, ["class"=>'form-control' ,"placeholder"=>'Voucher Amount Used', "required"]) !!}
             </div>
         </div>
         <div class="form-group col-md-4">
