@@ -29,6 +29,12 @@
                 <label><input value="forever" id="rememberme" name="rememberme" type="checkbox"> Remember Me</label>
                 <input class="submit" value="Log-In" type="submit" ng-disabled='userLogin.$invalid'>    
             </form>   
+            <a href="javascript:void(0);" onclick="fb_login();" class="fleft">
+								<button class="tr_delay_hover r_corners button_type_14 bg_color_blue color_light w100 m_bottom_15">
+										<i class="fa fa-facebook m_right_6"></i>
+									
+										Login With Facebook
+									</button></a>
         </div>
     </div>
 </div>

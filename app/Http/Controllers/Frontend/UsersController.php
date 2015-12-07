@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\User;
+use App\Models\Address;
 use App\Models\Order;
 use App\Models\Country;
 use App\Models\State;
@@ -36,30 +37,29 @@ class UsersController extends Controller {
 
         $user->password = Hash::make(Input::get('password'));
         $user->update();
-        if($register_home == 'register_home')
-        {
+        if ($register_home == 'register_home') {
             return redirect()->route('login');
-        }  else {
-        $email = Input::get('email');
-        $userDetails = User::where('email', "=", $email)->get()->first();
+        } else {
+            $email = Input::get('email');
+            $userDetails = User::where('email', "=", $email)->get()->first();
             $userData = [
-            'email' => Input::get('email'),
-            'password' => Input::get('password')
-        ];
+                'email' => Input::get('email'),
+                'password' => Input::get('password')
+            ];
 
-        if (Auth::attempt($userData, true)) {
-
-
-            $user = User::with('roles')->find($userDetails->id);
-            Session::put('loggedinUserId', $userDetails->id);
-            Session::put('userName', $userDetails->first_name . " " . $userDetails->last_name);
+            if (Auth::attempt($userData, true)) {
 
 
-           return redirect()->back();
+                $user = User::with('roles')->find($userDetails->id);
+                Session::put('loggedinUserId', $userDetails->id);
+                Session::put('userName', $userDetails->first_name . " " . $userDetails->last_name);
+                Session::put('logged_in_user', $userDetails->email);
+
+
+                return redirect()->back();
+            }
         }
-            
-        }
-       // return view(Config('constants.frontendLoginView') . '.login');
+        // return view(Config('constants.frontendLoginView') . '.login');
     }
 
     public function isUniqueValue() {
@@ -176,21 +176,66 @@ class UsersController extends Controller {
                         ->Join('has_products', 'orders.id', '=', 'has_products.order_id')
                         ->Join('products', 'has_products.prod_id', '=', 'products.id')
                         ->Join('order_status', 'orders.order_status', '=', 'order_status.id')
-                        ->select('orders.id','orders.cart','order_status.order_status','order_status.id as statusId', 'orders.created_at', DB::raw('SUM(has_products.price) as totalOrderAmt'), DB::raw("group_concat(products.product) as productName"), DB::raw("group_concat(products.id) as productId"), DB::raw("group_concat(has_products.qty) as productQty"), DB::raw("group_concat(has_products.uprice) as productUprice"), DB::raw("group_concat(has_products.price) as productPrice"))
+                        ->select('orders.id', 'orders.cart', 'order_status.order_status', 'order_status.id as statusId', 'orders.created_at', DB::raw('SUM(has_products.price) as totalOrderAmt'), DB::raw("group_concat(products.product) as productName"), DB::raw("group_concat(products.id) as productId"), DB::raw("group_concat(has_products.qty) as productQty"), DB::raw("group_concat(has_products.uprice) as productUprice"), DB::raw("group_concat(has_products.price) as productPrice"))
                         ->groupBy('orders.id')
                         ->where('user_id', "=", $userId)->get();
 
 //dd($orderDetails);
         return view(Config('constants.frontendLoginView') . '.orderdetails', compact('orderDetails', 'userDetails'));
     }
+
     public function cancelOrder() {
-        
+
         $orderId = Input::get("orderId");
-       // dd($orderId);
+        // dd($orderId);
         $orderInfo = Order::find($orderId);
         $orderInfo->order_status = '6';
         $orderInfo->update();
-       return $orderInfo;
+        return $orderInfo;
+    }
+
+    public function fb_details() {
+        $user_email = Input::get('email');
+        $user_id = Input::get('user_id');
+        $firstname = Input::get('firstname');
+        $lastname = Input::get('lastname');
+
+        $user = User::where("email", "=", $user_email)->first();
+        
+        if (!empty($user)) {
+            Session::put('logged_in_user', $user->email);
+            Session::put('loggedinUserId', $user->id);
+            Session::put('userName', $user->first_name . " " . $user->last_name);
+            Session::put('login_user_type', $user->user_type);
+            Session::put('login_user_first_name', $user->first_name);
+            Session::put('login_user_last_name', $user->last_name);
+            $login = Auth::login(User::find($user->id));
+             redirect('home');
+        } else {
+            $user = new User();
+            $user->email = $user_email;
+            $user->first_name = $firstname;
+            $user->last_name = $lastname;
+            $user->user_type = 2;
+            $user->fb_id = $user_id;
+            $user->platform = "Facebook";
+            if ($user->save()) {
+                $address = new Address();
+                $address->user_id = $user->id;
+                $address->firstname = $firstname;
+                $address->lastname = $lastname;
+                $address->save();
+
+                Session::put('logged_in_user', $user_email);
+                Session::put('loggedinUserId', $user->id);
+                Session::put('login_user_type', 2);
+                Session::put('userName', $firstname . " " . $lastname);
+                Session::put('login_user_last_name', $lastname);
+                Session::put('login_user_first_name', $firstname);
+                $login = Auth::login(User::find($user->id));
+                 redirect('myProfile');
+            }
+        }
     }
 
 }
