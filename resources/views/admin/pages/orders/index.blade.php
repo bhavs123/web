@@ -6,14 +6,14 @@
 
         <div class="row">
             <div class="col-sm-9 col-xs-12 rtborder" >
-                <form method="get" action="#" id="searchForm">
+                <form method="get" action="{{ URL::route(Route::currentRouteName()) }}" id="searchForm">
                     <div class="btn-group pull-left col-md-12">
                         <div class="form-group col-md-3">
-
+ 
 
                             <input type="hidden" value="orderSearch" name="orderSearch">
 
-                            <input type="text" value="" name="search" aria-controls="editable-sample" class="form-control medium" placeholder="Search by Name,Email,Delivery Boy,Telephone,Payment Method, Payment Status"/>
+                            <input type="text" value="" name="search" aria-controls="editable-sample" class="form-control medium" placeholder="Search by Name,Email,Telephone"/>
 
                         </div>
 
@@ -25,7 +25,7 @@
                             <input type="text" name="to_date" value=""    class="form-control toDate col-md-3" placeholder="To Order Date" autocomplete="off" id="todatepicker">
                         </div>
 
-                        <div class="form-group col-md-3 col-xs-12">
+                       <!-- <div class="form-group col-md-3 col-xs-12">
                             <input type="text" name="delivery_fdate" value=""    class="form-control DFromDate col-md-3" placeholder="From Delivery Date" autocomplete="off" id="DeliveryFromdatepicker">
                         </div>
 
@@ -44,7 +44,7 @@
 
 
 
-                        </div>
+                        </div>-->
                         <!--
                                                             <div class="form-group col-md-3">
                                                                 <input type="text" name="s_delivery_boy" value="{{ !empty(Input::get('s_delivery_boy'))?Input::get('s_delivery_boy'):"" }}"    class="form-control col-md-3" placeholder="Delivery boy" autocomplete="off" >
@@ -168,7 +168,10 @@
 <footer class="panel-footer">
     <div class="row">
         <div class="col-sm-4 text-right text-center-xs pull-right">                
-            <?= $orderInfo->render() ?>      
+            <?php
+            if (empty(Input::get('orderSearch'))) {
+                 echo  $orderInfo->render();
+            } ?>      
         </div>
     </div>
 </footer>
@@ -210,5 +213,11 @@
         });
     });
 </script>
+<script>
+  $(function() {
+    $( "#fromdatepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+     $( "#todatepicker" ).datepicker({dateFormat: 'yy-mm-dd'});
+  });
+  </script>
 
 @stop

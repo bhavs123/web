@@ -24,9 +24,59 @@ class OrdersController extends Controller {
 
     public function index() {
         // $orderPage = Order::paginate(5);
+        $search = !empty(Input::get("search")) ? Input::get("search") : '';
+        $search_fields = [];
+        $orderInfo = Order::orderBy('id', 'desc');
 
-        $orderInfo = Order::paginate(Config('constants.paginateNo'));
-        // dd($orderInfo);
+
+        //------------------------------------- SEARCH BY SEARCH FIELD -------------------------------//
+        $orderInfo = $orderInfo->where(function($query) use($search_fields, $search) {
+            foreach ($search_fields as $field) {
+                $query->orWhere($field, "like", "%$search%");
+            }
+            $query->orWhereHas('paymentmethod', function($query) use ($search) {
+                return $query->where('name', 'like', "%$search%");
+            });
+            $query->orWhereHas('paymentstatus', function($query) use ($search) {
+                return $query->where('payment_status', 'like', "%$search%");
+            });
+            $query->orWhereHas('users', function($query) use ($search) {
+                return $query->where('first_name', 'like', "%$search%");
+            });
+            $query->orWhereHas('users', function($query) use ($search) {
+                return $query->where('last_name', 'like', "%$search%");
+            });
+
+            $query->orWhereHas('users', function($query) use ($search) {
+                return $query->where('email', 'like', "%$search%");
+            });
+
+            $query->orWhereHas('users', function($query) use ($search) {
+                return $query->where('mobile', 'like', "%$search%");
+            });
+        });
+        //------------------------------------- SEARCH FOR ORDER DATE --------------------------------//  
+
+        if (!empty(Input::get('to_date')) && !empty(Input::get('from_date'))) {
+            $toDate = Input::get('to_date') . " " . "23:59:59";
+            $fromDate = Input::get('from_date') . " " . "00:00:00";
+            $orderInfo = $orderInfo->whereBetween('orders.created_at', array($fromDate, $toDate));
+        } elseif (!empty(Input::get('from_date')) && empty(Input::get('to_date'))) {
+            $orderInfo = $orderInfo->where('orders.created_at', '>=', Input::get('from_date'));
+        } elseif (empty(Input::get('from_date')) && !empty(Input::get('to_date'))) {
+            $orderInfo = $orderInfo->where('orders.created_at', '<=', Input::get('to_date') . " " . "23:59:59");
+        }
+
+        //$orderInfo = $orderInfo->paginate(Config('constants.paginateNo')); //->paginate(Config::get('constants.paginateNo'));
+
+        if (empty(Input::get('orderSearch'))) {
+
+            $orderInfo = $orderInfo->select('orders.*')->paginate(Config('constants.paginateNo'));
+        } else {
+
+            $orderInfo = $orderInfo->get(['orders.*']);
+        }
+
         return view(Config('constants.adminOrderView') . '.index', compact('orderInfo', 'orderPage'));
     }
 
@@ -119,12 +169,12 @@ class OrdersController extends Controller {
     public function invoice() {
 
         $orderIds = explode(",", Input::get('OrderIds'));
-      //  dd($orderIds);
+        //  dd($orderIds);
         $invoice = "";
         foreach ($orderIds as $id) {
             $order = Order::find($id);
             $address = $order->with('users')->with('address')->first();
-            
+
             $invoice .= view(Config('constants.adminOrderView') . '.invoice', compact('order', 'address'));
         }
         return $invoice;
